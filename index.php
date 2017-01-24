@@ -397,14 +397,25 @@
                     <!-- Start men product category -->
                     <div class="tab-pane fade in active" id="men">
                       <ul class="aa-product-catg">
+
+                        <?php
+
+                          $sql = "SELECT * FROM cards WHERE card_category = 'muslim' AND on_home = 'yes'" ;
+
+                          $res = $conn -> query($sql);
+
+                          while ($row = $res -> fetch_assoc()) {
+
+                        ?>
+
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim1.jpg" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img src="./allow_me/images/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-765</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
+                              <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
+                              <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
                             </figcaption>
                           </figure>                        
                           <div class="aa-product-hvr-content">
@@ -412,275 +423,56 @@
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                           </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
                         </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim2.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-775</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim3.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                             <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-705</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim4.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-738</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-hot" href="#">HOT!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim5.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-717</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim6.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-795</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim7.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-744</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/muslim8.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">M-799</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>                        
+
+                        <?php
+
+                          }
+
+                        ?>                      
                       </ul>
                       <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                     </div>
                     <!-- / men product category -->
+
+
                     <!-- start women product category -->
                     <div class="tab-pane fade" id="women">
                       <ul class="aa-product-catg">
+
+                        <?php
+
+                          $sql = "SELECT * FROM cards WHERE card_category = 'hindu' AND on_home = 'yes'" ;
+
+                          $res = $conn -> query($sql);
+
+                          while ($row = $res -> fetch_assoc()) {
+
+                        ?>
+
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu1.jpg" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="#"><img src="./allow_me/images/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-567</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
+                              <figcaption>
+                              <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
+                              <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
                             </figcaption>
-                          </figure>                         
+                          </figure>                        
                           <div class="aa-product-hvr-content">
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu2.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-587</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-hot" href="#">HOT!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu3.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-554</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                           </div>
                         </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu4.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-532</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu5.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-521</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>
-                         
-                          <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu6.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-537</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu7.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-581</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/hindu8.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">H-586</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>                        
+
+                        <?php
+
+                          }
+
+                        ?>  
+                                               
                       </ul>
                       <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                     </div>
@@ -688,288 +480,76 @@
                     <!-- start sports product category -->
                     <div class="tab-pane fade" id="sports">
                       <ul class="aa-product-catg">
+                        <?php
+
+                          $sql = "SELECT * FROM cards WHERE card_category = 'sikh' AND on_home = 'yes'" ;
+
+                          $res = $conn -> query($sql);
+
+                          while ($row = $res -> fetch_assoc()) {
+
+                        ?>
+
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh1.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-376</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
+                            <a class="aa-product-img" href="#"><img src="./allow_me/images/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <figcaption>
+                              <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
+                              <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
                             </figcaption>
-                          </figure>                         
+                          </figure>                        
                           <div class="aa-product-hvr-content">
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                           </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
                         </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh2.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-387</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh3.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-354</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh4.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-378</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-hot" href="#">HOT!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh5.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-395</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh6.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-367</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh7.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-317</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/sikh8.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">S-358</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>                        
+
+                        <?php
+
+                          }
+
+                        ?>                          
                       </ul>
                     </div>
                     <!-- / sports product category -->
                     <!-- start electronic product category -->
                     <div class="tab-pane fade" id="electronics">
                        <ul class="aa-product-catg">
+                        <?php
+
+                          $sql = "SELECT * FROM cards WHERE card_category = 'christian' AND on_home = 'yes'" ;
+
+                          $res = $conn -> query($sql);
+
+                          while ($row = $res -> fetch_assoc()) {
+
+                        ?>
+
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain1.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-153</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
+                            <a class="aa-product-img" href="#"><img src="./allow_me/images/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <figcaption>
+                              <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
+                              <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
                             </figcaption>
-                          </figure>                         
+                          </figure>                        
                           <div class="aa-product-hvr-content">
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain2.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-101</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain3.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-167</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                           </div>
                         </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain4.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-143</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-hot" href="#">HOT!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain5.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-178</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain6.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-185</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain7.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-111</a></h4>
-                              <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="my_img/christain8.jpg" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">C-121</a></h4>
-                              <span class="aa-product-price">RS 45.50</span>
-                            </figcaption>
-                          </figure>                          
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                          </div>
-                          <!-- product badge -->
-                           <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                        </li>                        
+
+                        <?php
+
+                          }
+
+                        ?>                         
                       </ul>
                       <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                     </div>
@@ -1390,149 +970,46 @@
                 </div> -->
                 <!-- / featured product category -->
 
+
                 <!-- start latest product category -->
                 <div class="tab-pane fade in active" id="latest">
                   <ul class="aa-product-catg aa-latest-slider">
+
+
+
+                    <?php
+
+                      $sql = "SELECT * FROM cards WHERE is_latest = 'yes'" ;
+
+                      $res = $conn -> query($sql);
+
+                      while ($row = $res -> fetch_assoc()) {
+
+                    ?>
+
                     <!-- start single product item -->
                     <li>
                       <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/muslim1.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                         <figcaption>
-                          <h4 class="aa-product-title"><a href="#">M-765</a></h4>
-                          <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                        </figcaption>
-                      </figure>                     
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                      </div>
-                      <!-- product badge -->
-                      <span class="aa-badge aa-sale" href="#">SALE!</span>
-                    </li>
-                     <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/hindu8.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                        <figcaption>
-                          <h4 class="aa-product-title"><a href="#">H-586</a></h4>
-                          <span class="aa-product-price">RS 45.50</span>
-                        </figcaption>
-                      </figure>                      
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                      </div>
-                      <!-- product badge -->
-                       <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                    </li>
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/sikh8.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                      </figure>
-                      <figcaption>
-                        <h4 class="aa-product-title"><a href="#">S-358</a></h4>
-                        <span class="aa-product-price">RS 45.50</span>
-                      </figcaption>
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                      </div>
-                      <!-- product badge -->
-                       <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                    </li>
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/christain3.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                         <figcaption>
-                          <h4 class="aa-product-title"><a href="#">C-1671</a></h4>
-                          <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                        </figcaption>
-                      </figure>                     
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                      </div>
-                    </li>
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/muslim5.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                        <figcaption>
-                          <h4 class="aa-product-title"><a href="#">M-717</a></h4>
-                          <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                        </figcaption>
-                      </figure>                      
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                      </div>
-                    </li>
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/hindu2.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                        <figcaption>
-                          <h4 class="aa-product-title"><a href="#">H-587</a></h4>
-                          <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                        </figcaption>
-                      </figure>                     
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                      </div>
-                      <!-- product badge -->
-                      <span class="aa-badge aa-hot" href="#">HOT!</span>
-                    </li>    
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/sikh4.jpg" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                         <figcaption>
-                          <h4 class="aa-product-title"><a href="#">S-378</a></h4>
-                          <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
-                        </figcaption>
-                      </figure>                     
-                      <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                      </div>
-                      <!-- product badge -->
-                      <span class="aa-badge aa-hot" href="#">HOT!</span>
-                    </li> 
-                    <!-- start single product item -->
-                    <li>
-                      <figure>
-                        <a class="aa-product-img" href="#"><img src="my_img/christain7.jpg" alt="polo shirt img"></a>
+                        <a class="aa-product-img" href="#"><img src="./allow_me/images/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
                         <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                         <figcaption>
-                          <h4 class="aa-product-title"><a href="#">C-111</a></h4>
-                          <span class="aa-product-price">RS 45.50</span><span class="aa-product-price"><del>RS 65.50</del></span>
+                          <figcaption>
+                          <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
+                          <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
                         </figcaption>
-                      </figure>                     
+                      </figure>                        
                       <div class="aa-product-hvr-content">
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                       </div>
-                      <!-- product badge -->
-                      <span class="aa-badge aa-sale" href="#">SALE!</span>
-                    </li>                                                                                   
+                    </li>
+
+                    <?php
+
+                      }
+
+                    ?>  
+                                                                                  
                   </ul>
                    <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                 </div>

@@ -608,6 +608,7 @@
                           <th>CARD CATEGORY</th>
                           <th>CARD IMAGE</th>
                           <th>CARD ON HOME</th>
+                          <th>LATEST</th>
                         </tr>
                       </thead>
                     </table>  
@@ -1179,7 +1180,11 @@
                     { label: "no", value: "no" },
                     { label: "yes", value: "yes" } 
                   ]
-                }
+            }, {
+                label: "LATEST:",
+                name: "is_latest",
+                type:  "select",
+            }
           ]
       });
 
@@ -1189,6 +1194,15 @@
       card_editor.field('card_category').update(data);
 
       },"json");
+
+
+      card_editor.on('initCreate',function(){
+
+        card_editor.field('is_latest').hide();
+        card_editor.field('on_home').hide();
+
+      });
+
 
       $('#card_datatable-responsive').DataTable({
           dom: "Bfrtip",
@@ -1223,6 +1237,10 @@
               { 
                 data: "on_home", 
                 className: 'editable'
+              },
+              { 
+                data: "is_latest", 
+                className: 'editable'
               }
           ],
           select: {
@@ -1245,12 +1263,28 @@
 
 
       $('#card_datatable-responsive').on( 'click', 'tbody td.editable', function (e) {
+
+
+          $.post("./php/get_card_data.php",{getLatest:"yes"},function(data){
+
+          card_editor.field('is_latest').update(data);
+
+          },"json");
+
+
           card_editor.inline( this, {
               submitOnBlur: true
           } );
       } );
 
       $('#card_datatable-responsive').on( 'key-focus', function ( e, datatable, cell ) {
+
+          $.post("./php/get_card_data.php",{getLatest:"yes"},function(data){
+
+          card_editor.field('is_latest').update(data);
+
+          },"json");
+
           card_editor.inline( cell.index() , {
               submitOnBlur: true
           });

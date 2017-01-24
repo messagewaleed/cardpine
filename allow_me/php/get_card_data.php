@@ -30,7 +30,7 @@
 
             
 
-            $sql = "UPDATE cards SET $column='$changedData' WHERE card_id=$id";
+            $sql = "UPDATE cards SET $column='".mysqli_real_escape_string($conn,$changedData)."' WHERE card_id=$id";
 
             if($column == 'card_category')
             {
@@ -124,8 +124,47 @@
                 else
                 {
                     echo '{"fieldErrors":[{"name":"'.$column.'","status":"already 8 selected for home."}],"data":[]}';
+                }       
+            }
+            elseif ($column == 'is_latest') {
+
+                $old_value;
+
+                $update_old = "UPDATE cards SET is_latest='yes' WHERE card_id = ".$id; 
+
+                $sql = "SELECT is_latest FROM cards WHERE card_id = ".$id;
+
+                $res = $conn->query($sql);
+
+                while ($row = $res -> fetch_assoc()) {
+                   
+                    $old_value = $row['is_latest'];
+
                 }
-                
+                $update_new = "UPDATE cards SET is_latest='".$old_value."' WHERE card_id = ".$changedData;
+
+                if (($conn->query($update_old) === TRUE) && ($conn->query($update_new) === TRUE)) {
+
+                   $query = "SELECT * from cards WHERE card_id=$id OR card_id=$changedData";
+
+
+                    $res = $conn -> query($query);
+
+
+                    $result = array();
+
+
+                    while ($row = $res -> fetch_assoc()) {
+                        # code...
+                        $result[] = $row;
+
+                    }
+
+                    print('{"data":'.json_encode($result).'}');
+
+                } else {
+                    echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
+                }
             }
             else
             {
@@ -151,8 +190,7 @@
                 } else {
                     echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
                 }
-            }
-            
+            }         
         }
         elseif ($_POST['action'] == "create")
         {
@@ -230,7 +268,8 @@
                 }
             }
         }
-        elseif ($_POST['action'] == "remove") {
+        elseif ($_POST['action'] == "remove") 
+        {
             # code...
 
             $data = $_POST['data'];
@@ -246,7 +285,8 @@
 
             }
         }
-        elseif ($_POST['action'] == "upload") {
+        elseif ($_POST['action'] == "upload") 
+        {
             # code...
 
             $target_dir = "/images/";
@@ -283,28 +323,44 @@
             {
                 echo '{"fieldErrors":[{"name":"'.$column.'","status":"Sorry, there was an error uploading your file."}],"data":[]}';
             }
-
-        }
-            
+        }           
     }
     else{
 
 
-    $query = "SELECT * from cards";
+            $query = "SELECT * from cards";
 
-      $res = $conn -> query($query);
+            $res = $conn -> query($query);
 
 
             $result = array();
+            $options = array();
+            $arr['label'] = "Chose your option";
+            $arr['value'] = "-1";
+            array_push($options, $arr);
 
 
             while ($row = $res -> fetch_assoc()) {
-                # code...
-                $result[] = $row;
 
+                $result[] = $row;
+                if ($row['is_latest'] == 'yes') {
+
+                    $arr['label'] = "swap with ".$row['card_name'];
+                    $arr['value'] = $row['card_id'];
+                    array_push($options, $arr);
+
+                }
+                
             }
-        
-            print('{"data":'.json_encode($result).'}');
+            
+            if (isset($_POST['getLatest'])) {
+                
+                print(json_encode($options));
+            }
+            else {
+                
+                print('{"data":'.json_encode($result).'}');
+            }
 
         }
 

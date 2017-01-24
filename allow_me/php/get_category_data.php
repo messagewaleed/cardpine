@@ -106,9 +106,7 @@
                 }
 
                 print('{"data":'.json_encode($result).'}');
-            }
-            
-            
+            }        
         }
 
             
@@ -121,7 +119,7 @@
 
         $query = "SELECT * from category";
 
-      $res = $conn -> query($query);
+        $res = $conn -> query($query);
 
 
             $result = array();
