@@ -1,18 +1,6 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "cardpine";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    $found = false;
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'connection.php';
 
     if ($_POST['from'] == 'login') {
         # code...

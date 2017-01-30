@@ -1,16 +1,7 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "cardpine";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
+    include 'connection.php';
+    include 'smart_resize_image.function.php';
 
 
     if (isset($_POST['action'])) {
@@ -22,9 +13,13 @@
 
             $data = $_POST['data'];
 
-            $id = array_keys($data)[0];
+            $id = array_keys($data);
+    
+            $id = array_shift($id);
 
-            $column = array_keys($data[$id])[0];
+            $column = array_keys($data[$id]);
+
+            $column = array_shift($column);
 
             $changedData = $data[$id][$column];
 
@@ -289,22 +284,22 @@
         {
             # code...
 
-            $target_dir = "/images/";
+            $target_dir = "../images/cards/";
         
 
             $column = $_POST['uploadField'];
 
             // saving and retrieving image path from database
             $target_path = basename($_FILES['upload']['name']); 
-            $target_file = $target_dir . basename($_FILES['upload']['name']);
+            $target_file = $target_dir . 'main/' . basename($_FILES['upload']['name']);
+            $tile_file = $target_dir . 'tiles/' . basename($_FILES['upload']['name']);
+            $thumb_file = $target_dir . 'thumbnails/' . basename($_FILES['upload']['name']);
 
             $imageFileType = pathinfo($target_path,PATHINFO_EXTENSION);
             $check = getimagesize($_FILES["upload"]["tmp_name"]);
 
             if (file_exists($target_file)) {
-                // echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
-
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Sorry, image already exists."}],"data":[]}';
+                echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
 
             }
             else if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
@@ -318,6 +313,11 @@
             else if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) 
             {
                 echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
+
+                smart_resize_image($target_file , null, 250 , 300 , false , $thumb_file , false , false ,100 );
+
+                smart_resize_image($target_file , null, 150 , 150 , false , $tile_file , false , false ,100 );
+
             }
             else
             {

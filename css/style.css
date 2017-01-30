@@ -66,6 +66,7 @@ a:focus {
   text-decoration: none;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
 }
@@ -3482,6 +3483,8 @@ img {
 #aa-footer .aa-footer-bottom .aa-footer-bottom-area .aa-footer-payment span:hover {
   color: #fff;
 }
+
+
 
 /*==================
  RESPONSIVE DESIGN

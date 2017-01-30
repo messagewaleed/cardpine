@@ -1,16 +1,6 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "cardpine";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
+    include 'connection.php';
 
 
     if (isset($_POST['action'])) {
@@ -23,9 +13,13 @@
 
             $data = $_POST['data'];
 
-            $id = array_keys($data)[0];
+            $id = array_keys($data);
+    
+            $id = array_shift($id);
 
-            $column = array_keys($data[$id])[0];
+            $column = array_keys($data[$id]);
+
+            $column = array_shift($column);
 
             $changedData = $data[$id][$column];
 
