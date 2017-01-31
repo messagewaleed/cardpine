@@ -1,5 +1,6 @@
 <?php
 
+  include './php/sessions.php';
   include './allow_me/php/connection.php';
 
   if (isset($_GET['cid'])) {
@@ -21,7 +22,6 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-signin-client_id" content="889653158766-6fhhgojvl9o9ccp21jj5pssgkugskvg8.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
     <title>C A R D Pine | Product Detail</title>
     
@@ -51,7 +51,7 @@
     <script src="js/jquery.min.js"></script>  
 
     <!-- gmail platform -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
 
     <!-- facebook js sdk library -->
     <script src="js/facebook.js"></script>
@@ -308,7 +308,7 @@
   <script src="allow_me/vendors/parsleyjs/dist/parsley.min.js"></script>
 
   <!-- login/register -->
-  <script src="js/my_script.js"></script>
+  <script type="text/javascript" src="js/my_script.js"></script>
 
   </body>
 

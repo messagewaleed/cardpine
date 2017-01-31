@@ -1,38 +1,9 @@
 
-var url = "./php/user_login_register.php";
-var session_url = "./php/sessions.php";
-var wishlist_url = "./php/wishlist.php";
+<script type="text/javascript">
+var url = "../php/user_login_register.php";
 var googleUser = {};
 
 $( document ).ready(function() {
-
-
-  $.post(session_url, {user:"check_session"}).done(function (session_data) {
-
-    if (session_data != 'false') 
-    {
-      
-      $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
-
-        var id;
-        for(var i=0;i<data.length;i++)
-        {
-          id = data[i].card_id;
-          $('#'+id+' span').removeClass('fa-heart-o');
-          $('#'+id+' span').addClass('fa-heart');
-
-        }
-
-      },'json');
-      
-    }
-  });
-
-
-
-
-
-
 
 var auth2;
 
@@ -41,12 +12,15 @@ gapi.load('auth2', function(){
   auth2 = gapi.auth2.init({
     client_id: '889653158766-6fhhgojvl9o9ccp21jj5pssgkugskvg8.apps.googleusercontent.com',
     cookiepolicy: 'single_host_origin',
+    // Request scopes in addition to 'profile' and 'email'
+    //scope: 'additional_scope'
   });
   attachSignin(document.getElementById('gmail_btn'));
 });
 
 
 function attachSignin(element) {
+
 
   auth2.attachClickHandler(element, {},
       function(googleUser) {
@@ -57,25 +31,13 @@ function attachSignin(element) {
 
         alert(user_email +"  "+user_name);
 
-        
-
+      
         $.post(url, {from:"gmail",fullname:user_name,email:user_email}).done(function (data) {
-
-          
 
             if (data == 'success') 
             {
-              $.post(session_url, {user:"gmail",email:user_email}).done(function (session_data) {
-
-                if (session_data == 'success') 
-                {
-                  window.location.reload(true);
-                }
-                else
-                {
-                  alert(session_data);
-                }
-              });       
+              $.post(url, {from:"gmail",fullname:user_name,email:user_email}).done(function (data) {
+              window.location.reload(true);
             }
             else
             {
@@ -102,17 +64,8 @@ function checkLoginState() {
 
             if (data == 'success') 
             {
-              $.post(session_url, {user:"facebook",email:response.email}).done(function (session_data) {
-
-                if (session_data == 'success') 
-                {
-                  window.location.reload(true);
-                }
-                else
-                {
-                  alert(session_data);
-                }
-              }); 
+              alert('inside facebook');
+              window.location.reload();
             }
             else
             {
@@ -167,17 +120,11 @@ $('#submit_login').click(function(){
 
       if (data == 'success') 
       {
-        $.post(session_url, {user:"main",email:formData[1].value}).done(function (session_data) {
-
-          if (session_data == 'success') 
-          {
-            window.location.reload(true);
-          }
-          else
-          {
-            alert(session_data);
-          }
-        }); 
+        <?php 
+          $_SESSION['loggedin'] = "yes";
+          $_SESSION['user'] = "site";
+         ?>
+        window.location.href = "index.php";
       }
       else
       {
@@ -204,17 +151,11 @@ $('#submit_register').click(function(){
 
       if (data == 'success') 
       {
-        $.post(session_url, {user:"main",email:formData[1].value}).done(function (session_data) {
-
-          if (session_data == 'success') 
-          {
-            window.location.reload(true);
-          }
-          else
-          {
-            alert(session_data);
-          }
-        });
+        <?php 
+          $_SESSION['loggedin'] = "yes";
+          $_SESSION['user'] = "site";
+         ?>
+        window.location.href.hash = "index.php";
       }
       else
       {
@@ -238,17 +179,11 @@ $('#submit_reset').click(function(){
 
       if (data == 'success') 
       {
-        $.post(session_url, {user:"main",email:formData[1].value}).done(function (session_data) {
-
-          if (session_data == 'success') 
-          {
-            window.location.reload(true);
-          }
-          else
-          {
-            alert(session_data);
-          }
-        });
+        <?php 
+          $_SESSION['loggedin'] = "yes";
+          $_SESSION['user'] = "site";
+         ?>
+        window.location.href.hash = "index.php";
       }
       else
       {
@@ -374,68 +309,7 @@ $('.rate_star').click(function(){
 
 $('#logoff_btn').click(function(){
 
-  $.post(session_url, {user:"logout"}).done(function (session_data) {
-
-    if (session_data == 'success') 
-    {
-      window.location.reload(true);
-    }
-    else
-    {
-      alert(session_data);
-    }
-  }); 
+  window.location.href = 'index.php';
 
 });
-
-
-$('.wishlist').click(function(){
-
-  var id = $(this).attr('id');
-
-  $.post(session_url, {user:"check_session"}).done(function (session_data) {
-
-    if (session_data != 'false') 
-    {
-      if ($('#'+id+' span').hasClass('fa-heart-o')) 
-      {
-        $.post(wishlist_url, {action:'add',card_id:id,user_email:session_data}).done(function (data) {
-
-          if (data == 'success') 
-          {
-            $('#'+id+' span').removeClass('fa-heart-o');
-            $('#'+id+' span').addClass('fa-heart');
-          }
-          else
-          {
-            alert(data);
-          }
-
-        });
-      }
-      else if ($('#'+id+' span').hasClass('fa-heart'))
-      {
-        $.post(wishlist_url, {action:'remove',card_id:id,user_email:session_data}).done(function (data) {
-
-          if (data == 'success') 
-          {
-            $('#'+id+' span').removeClass('fa-heart');
-            $('#'+id+' span').addClass('fa-heart-o');
-          }
-          else
-          {
-            alert(data);
-          }
-
-        });
-      }
-    }
-    else
-    {
-      $('#login-modal').modal('show');
-    }
-
-});
-
-});
-
+</script>

@@ -2,8 +2,9 @@
 
 <?php
 
-  include './allow_me/php/connection.php';
-  session_start();
+	include './php/sessions.php';
+	include './allow_me/php/connection.php';
+
 ?>
 
 
@@ -11,7 +12,6 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-signin-client_id" content="889653158766-6fhhgojvl9o9ccp21jj5pssgkugskvg8.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
     <title>C A R D Pine | Home</title>
     
@@ -41,7 +41,8 @@
     <script src="js/jquery.min.js"></script>  
 
     <!-- gmail platform -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+
 
     <!-- facebook js sdk library -->
     <script src="js/facebook.js"></script>
@@ -233,7 +234,7 @@
                               </figcaption>
                             </figure>                        
                             <div class="aa-product-hvr-content">
-                              <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                              <a id="<?php echo ($row['card_id']);?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                               <a href="#" data-toggle2="tooltip" class="quick_view" id="<?php echo ($row['card_id']);?>" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                             </div>
@@ -277,7 +278,7 @@
                               </figcaption>
                             </figure>                        
                             <div class="aa-product-hvr-content">
-                              <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                              <a id="<?php echo ($row['card_id']);?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                               <a href="#" data-toggle2="tooltip" class="quick_view" id="<?php echo ($row['card_id']);?>" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                             </div>
@@ -319,7 +320,7 @@
                               </figcaption>
                             </figure>                        
                             <div class="aa-product-hvr-content">
-                              <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                              <a id="<?php echo ($row['card_id']);?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                               <a href="#" data-toggle2="tooltip" class="quick_view" id="<?php echo ($row['card_id']);?>" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                             </div>
@@ -357,7 +358,7 @@
                               </figcaption>
                             </figure>                        
                             <div class="aa-product-hvr-content">
-                              <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                              <a id="<?php echo ($row['card_id']);?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                               <a href="#" data-toggle2="tooltip" class="quick_view" id="<?php echo ($row['card_id']);?>" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                             </div>
@@ -504,7 +505,7 @@
                           </figcaption>
                         </figure>                        
                         <div class="aa-product-hvr-content">
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a id="<?php echo ($row['card_id']);?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                           <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                           <a href="#" data-toggle2="tooltip" data-placement="top" class="quick_view" id="<?php echo ($row['card_id']);?>" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                         </div>
@@ -643,8 +644,10 @@
   <!-- Parsley -->
   <script src="allow_me/vendors/parsleyjs/dist/parsley.min.js"></script>
 
-  <!-- gmail js sdk library -->
+  <!-- login/register -->
   <script type="text/javascript" src="js/my_script.js"></script>
+
+
 
   </body>
 </html>

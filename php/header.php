@@ -64,7 +64,32 @@
                     <li class="hidden-xs"><a href="#">Wishlist</a></li>
                     <li class="hidden-xs"><a href="#">My Cart</a></li>
                     <li class="hidden-xs"><a href="#">Checkout</a></li>
+
+                    <?php
+
+                      if (isset($_SESSION['logged_in'])) {
+
+                        echo("<script>alert('user = ".$_SESSION['user']."');</script>");
+                    ?>
+
+                    <li><a href="" id="logoff_btn" >Logout</a></li>
+
+                    <?php
+
+                      }
+                      else
+                      {
+
+                    ?>
+   
                     <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+
+                    <?php
+
+                      }
+
+                    ?>
+                    
                   </ul>
                 </div>
               </div>

@@ -134,7 +134,7 @@
                 <div style="display: inline-block;">
                 <fb:login-button data-size="xlarge" scope="public_profile,email" onlogin="checkLoginState()">facebook</fb:login-button>
                 </div>
-                <div style="display: inline-block;" class="g-signin2" data-onsuccess="onSignIn">Gmail</div>
+                <div id="gmail_btn" style="display: inline-block;" class="g-signin2">Gmail</div>
               </div>
               <div class="aa-register-now">
                 Don't have an account?<a style="cursor: pointer;" id="switchToRegister">Register now!</a>
