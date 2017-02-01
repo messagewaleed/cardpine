@@ -2,10 +2,10 @@
 var url = "./php/user_login_register.php";
 var session_url = "./php/sessions.php";
 var wishlist_url = "./php/wishlist.php";
+var cart_url = "./php/cart.php";
 var googleUser = {};
 
 $( document ).ready(function() {
-
 
   $.post(session_url, {user:"check_session"}).done(function (session_data) {
 
@@ -18,8 +18,9 @@ $( document ).ready(function() {
         for(var i=0;i<data.length;i++)
         {
           id = data[i].card_id;
-          $('#'+id+' span').removeClass('fa-heart-o');
-          $('#'+id+' span').addClass('fa-heart');
+          if (data[i].class) {}
+          $('#'+id+'_home span').removeClass('fa-heart-o');
+          $('#'+id+'_home span').addClass('fa-heart');
 
         }
 
@@ -29,67 +30,61 @@ $( document ).ready(function() {
   });
 
 
+  var auth2;
 
-
-
-
-
-var auth2;
-
-gapi.load('auth2', function(){
-  // Retrieve the singleton for the GoogleAuth library and set up the client.
-  auth2 = gapi.auth2.init({
-    client_id: '889653158766-6fhhgojvl9o9ccp21jj5pssgkugskvg8.apps.googleusercontent.com',
-    cookiepolicy: 'single_host_origin',
+  gapi.load('auth2', function(){
+    // Retrieve the singleton for the GoogleAuth library and set up the client.
+    auth2 = gapi.auth2.init({
+      client_id: '889653158766-6fhhgojvl9o9ccp21jj5pssgkugskvg8.apps.googleusercontent.com',
+      cookiepolicy: 'single_host_origin',
+    });
+    attachSignin(document.getElementById('gmail_btn'));
   });
-  attachSignin(document.getElementById('gmail_btn'));
-});
 
 
-function attachSignin(element) {
+  function attachSignin(element) {
 
-  auth2.attachClickHandler(element, {},
-      function(googleUser) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
 
-        var profile = googleUser.getBasicProfile();
-        var user_name = profile.getName();
-        var user_email = profile.getEmail();
+          var profile = googleUser.getBasicProfile();
+          var user_name = profile.getName();
+          var user_email = profile.getEmail();
 
-        alert(user_email +"  "+user_name);
-
-        
-
-        $.post(url, {from:"gmail",fullname:user_name,email:user_email}).done(function (data) {
+          alert(user_email +"  "+user_name);
 
           
 
-            if (data == 'success') 
-            {
-              $.post(session_url, {user:"gmail",email:user_email}).done(function (session_data) {
+          $.post(url, {from:"gmail",fullname:user_name,email:user_email}).done(function (data) {
 
-                if (session_data == 'success') 
-                {
-                  window.location.reload(true);
-                }
-                else
-                {
-                  alert(session_data);
-                }
-              });       
-            }
-            else
-            {
-             $("#error_message_login").text(data); 
-             $("#error_message_login").slideDown();
-            }
+            
 
-          });
-        
-      }, function(error) {
-        alert(JSON.stringify(error, undefined, 2));
-      });
-}
-  
+              if (data == 'success') 
+              {
+                $.post(session_url, {user:"gmail",email:user_email}).done(function (session_data) {
+
+                  if (session_data == 'success') 
+                  {
+                    window.location.reload(true);
+                  }
+                  else
+                  {
+                    alert(session_data);
+                  }
+                });       
+              }
+              else
+              {
+               $("#error_message_login").text(data); 
+               $("#error_message_login").slideDown();
+              }
+
+            });
+          
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
 });
 
 
@@ -385,7 +380,6 @@ $('#logoff_btn').click(function(){
       alert(session_data);
     }
   }); 
-
 });
 
 
@@ -434,8 +428,38 @@ $('.wishlist').click(function(){
     {
       $('#login-modal').modal('show');
     }
-
+  });
 });
 
+$('.aa-add-card-btn').click(function(){
+
+  var id = $(this).attr('id');
+
+  $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+    if (session_data != 'false') 
+    {
+      $.post(cart_url, {action:'add',card_id:id,user_email:session_data}).done(function (data) {
+
+        if (data == 'success') 
+        {
+
+          $('#card_box').load('./php/show_cart.php');
+        }
+        else
+        {
+          alert(data);
+        }
+
+      });
+    }
+    else
+    {
+      $('#login-modal').modal('show');
+    }
+
+  });
 });
+
+
 

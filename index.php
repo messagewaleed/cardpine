@@ -227,7 +227,7 @@
                           <li>
                             <figure>
                               <a class="aa-product-img" href="product_detail.php?cid=<?php echo ($row['card_id']); ?>"><img src="./allow_me/images/cards/tiles/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
-                              <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a class="aa-add-card-btn" id="<?php echo ($row['card_id']);?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
                                 <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
                                 <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
@@ -271,7 +271,7 @@
                           <li>
                             <figure>
                               <a class="aa-product-img" href="product_detail.php?cid=<?php echo ($row['card_id']); ?>"><img src="./allow_me/images/cards/tiles/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
-                              <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a class="aa-add-card-btn" id="<?php echo ($row['card_id']);?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
                                 <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
                                 <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
@@ -313,7 +313,7 @@
                           <li>
                             <figure>
                               <a class="aa-product-img" href="product_detail.php?cid=<?php echo ($row['card_id']); ?>"><img src="./allow_me/images/cards/tiles/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
-                              <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a class="aa-add-card-btn" id="<?php echo ($row['card_id']);?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
                                 <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
                                 <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
@@ -351,7 +351,7 @@
                           <li>
                             <figure>
                               <a class="aa-product-img" href="product_detail.php?cid=<?php echo ($row['card_id']); ?>"><img src="./allow_me/images/cards/tiles/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
-                              <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a class="aa-add-card-btn" id="<?php echo ($row['card_id']);?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
                                 <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
                                 <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
@@ -498,14 +498,14 @@
                       <li>
                         <figure>
                           <a class="aa-product-img" href="product_detail.php?cid=<?php echo ($row['card_id']); ?>"><img src="./allow_me/images/cards/tiles/<?php echo ($row['card_image']); ?>" alt="polo shirt img"></a>
-                          <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <a class="aa-add-card-btn" id="<?php echo ($row['card_id']);?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                             <figcaption>
                             <h4 class="aa-product-title"><a href="#"><?php echo ($row['card_name']) ;?></a></h4>
                             <span class="aa-product-price">RS <?php echo ($row['card_price']) ;?>
                           </figcaption>
                         </figure>                        
                         <div class="aa-product-hvr-content">
-                          <a id="<?php echo ($row['card_id']);?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a id="<?php echo ($row['card_image']); ?>" class="wishlist" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                           <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                           <a href="#" data-toggle2="tooltip" data-placement="top" class="quick_view" id="<?php echo ($row['card_id']);?>" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                         </div>
