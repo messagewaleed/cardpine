@@ -7,27 +7,26 @@ var googleUser = {};
 
 $( document ).ready(function() {
 
-  $.post(session_url, {user:"check_session"}).done(function (session_data) {
+  // $.post(session_url, {user:"check_session"}).done(function (session_data) {
 
-    if (session_data != 'false') 
-    {
+  //   if (session_data != 'false') 
+  //   {
       
-      $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
+  //     $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
 
-        var id;
-        for(var i=0;i<data.length;i++)
-        {
-          id = data[i].card_id;
-          if (data[i].class) {}
-          $('#'+id+'_home span').removeClass('fa-heart-o');
-          $('#'+id+'_home span').addClass('fa-heart');
+  //       var id;
+  //       for(var i=0;i<data.length;i++)
+  //       {
+  //         id = data[i].card_id;
+  //         $('#'+id+' span').removeClass('fa-heart-o');
+  //         $('#'+id+' span').addClass('fa-heart');
 
-        }
+  //       }
 
-      },'json');
+  //     },'json');
       
-    }
-  });
+  //   }
+  // });
 
 
   var auth2;
@@ -386,11 +385,15 @@ $('#logoff_btn').click(function(){
 $('.wishlist').click(function(){
 
   var id = $(this).attr('id');
+  var data = $(this).attr('data');
+
+  alert(data);
 
   $.post(session_url, {user:"check_session"}).done(function (session_data) {
 
     if (session_data != 'false') 
     {
+      alert('#'+id+' span');
       if ($('#'+id+' span').hasClass('fa-heart-o')) 
       {
         $.post(wishlist_url, {action:'add',card_id:id,user_email:session_data}).done(function (data) {

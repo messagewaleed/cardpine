@@ -1,5 +1,5 @@
 <?php
-
+		
 	include '../allow_me/php/connection.php';
 
 	if ($_POST['action'] == 'add') {

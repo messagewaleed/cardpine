@@ -14,7 +14,7 @@
 			if($result->num_rows == 0) {
 			    $sql = "INSERT INTO user_cart (card_id,user_email) VALUES ($card_id,'$user_email')";
 			} else {
-			    $sql = "UPDATE user_cart SET total_quantity = total_quantity + 1";
+			    $sql = "UPDATE user_cart SET total_quantity = total_quantity + 1 WHERE card_id = $card_id AND user_email = '$user_email'";
 			}
 
 			if ($conn->query($sql)) {
