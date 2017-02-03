@@ -7,36 +7,37 @@ var googleUser = {};
 
 $( document ).ready(function() {
 
-  // $.post(session_url, {user:"check_session"}).done(function (session_data) {
+  $.post(session_url, {user:"check_session"}).done(function (session_data) {
 
-  //   if (session_data != 'false') 
-  //   {
+    if (session_data != 'false') 
+    {
       
-  //     $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
+      $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
 
-  //       var id;
-  //       for(var i=0;i<data.length;i++)
-  //       {
-  //         id = data[i].card_id;
+        var id;
+        for(var i=0;i<data.length;i++)
+        {
+          id = data[i].card_id;
 
-  //         $('.wishlist_btn').each(function(){
+          $('.wishlist_btn').each(function(){
 
-  //           if ($(this).attr('data') == id)
-  //           {
-  //             $(this).children.removeClass('fa-heart-o');
-  //             $(this).clildren.addClass('fa-heart');
-  //           }
+            var span =$(this).children();
+            if ($(this).attr('data') == id)
+            {
+              span.removeClass('fa-heart-o');
+              span.addClass('fa-heart');
+            }
 
-  //         });
+          });
 
 
           
-  //       }
+        }
 
-  //     },'json');
+      },'json');
       
-  //   }
-  // });
+    }
+  });
 
 
   var auth2;
@@ -560,11 +561,7 @@ $('.card_quantity').on('blur',function(){
 
     $.post(cart_url, {action:'update',card_id:card_id,user_email:email,total_quantity:card_quantity}).done(function (data) {
 
-      if (data == 'success') 
-      {
-
-      }
-      else
+      if (data != 'success') 
       {
         alert(data);
       }
