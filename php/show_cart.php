@@ -44,9 +44,7 @@
 
     $card_data = $res->fetch_assoc();
 
-    $total = $total + ($row['total_quantity']*$card_data['card_price']);
-      
-  
+    $total = $total + ($row['total_quantity']*$card_data['card_price']); 
 
 ?>
     <li>
@@ -55,7 +53,7 @@
         <h4><a href="#"><?= $card_data['card_name']?></a></h4>
         <p><?= $row['total_quantity']; ?> x RS <?= $card_data['card_price']?></p>
       </div>
-      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+      <a class="aa-remove-product remove_cart_dialog" data="<?php echo ($_SESSION['user']);?>,<?php echo ($row['card_id']);?>" href="#"><span class="fa fa-times"></span></a>
     </li>
 <?php
 

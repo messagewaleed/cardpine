@@ -25,22 +25,37 @@
 				echo $conn->error;
 			}
 		}
-		else if ($_POST['action'] == 'getAll') {
+		else if ($_POST['action'] == 'remove') {
 
 			$user_email = $_POST['user_email'];
+			$card_id = $_POST['card_id'];
 
-			$sql = "SELECT card_id FROM user_wishlist WHERE  user_email='$user_email'";
+			$sql = "DELETE FROM user_cart WHERE card_id=$card_id AND user_email='$user_email'";
 
-			$result = array();
+			if ($conn->query($sql)) {
+				echo 'success';
+			}
+			else
+			{
+				echo $conn->error;
+			}
+		}
+		elseif ($_POST['action'] == 'update') {
 
-			$res = $conn->query($sql);
+			$user_email = $_POST['user_email'];
+			$card_id = $_POST['card_id'];
+			$total_quantity = $_POST['total_quantity'];
 			
-			while ($row = $res -> fetch_assoc()) {
-				$result[] = $row;
+			$sql = "UPDATE user_cart SET total_quantity = $total_quantity WHERE card_id = $card_id AND user_email = '$user_email'";
+
+			if ($conn->query($sql)) {
+				echo 'success';
+			}
+			else
+			{
+				echo $conn->error;
 			}
 
-
-			print(json_encode($result));
 		}
 	}
 	
