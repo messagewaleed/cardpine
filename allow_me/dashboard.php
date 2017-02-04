@@ -611,9 +611,6 @@
         window.ParsleyValidator
             .addValidator('dropdown', function (value, requirement) {
                 // the value contains the file path, so we can pop the extension
-
-                
-
                 if (requirement) 
                 {
                   return value != -1;
@@ -818,23 +815,33 @@
               keys: true,
               table: "#slider_datatable-responsive",
               idSrc:  'slider_id',
-              fields: [ {
+              fields: [ 
+                  {
                       label: "SLIDER ID:",
                       name: "slider_id",
-                  }, {
+                      type: "text"
+                  }, 
+                  {
                       label: "MAIN TEXT:",
-                      name: "main_text"
-                  }, {
+                      name: "main_text",
+                      type: "text"
+                  }, 
+                  {
                       label: "TOP HEADING:",
-                      name: "sub_heading_top"
-                  }, {
+                      name: "sub_heading_top",
+                      type: "text"
+                  }, 
+                  {
                       label: "BOTTOM HEADING:",
-                      name: "sub_heading_bottom"
-                  }, {
+                      name: "sub_heading_bottom",
+                      type: "text"
+                  }, 
+                  {
                       label: "IMAGE:",
                       name: "background_img", 
                       type: "upload"
-                  }, {
+                  }, 
+                  {
                       label: "STATUS:",
                       name: "status",
                       type:  "select",
@@ -842,8 +849,8 @@
                           { label: "published", value: "published" },
                           { label: "unpublished", value: "unpublished" } 
                         ]
-                      }
-              ]
+                  }
+            ]
           } );
 
           $('#slider_datatable-responsive').DataTable({
@@ -956,7 +963,8 @@
             idSrc:  'category_id',
             fields: [  {
                     label: "CATEGORY NAME:",
-                    name: "category_name"
+                    name: "category_name",
+                    type: "text"
                 }, {
                     label: "CATEGORY DESCRIPTION:",
                     name: "category_description",
@@ -1049,14 +1057,16 @@
         idSrc:  'card_id',
         fields: [ {
                 label: "CARD NAME:",
-                name: "card_name"
+                name: "card_name",
+                type: "text"
             }, {
                 label: "CARD DESCRIPTION:",
                 name: "card_description",
                 type: "textarea"
             }, {
                 label: "CARD PRICE:",
-                name: "card_price"
+                name: "card_price",
+                type: "text"
             }, {
                 label: "CARD CATEGORY:",
                 name: "card_category",
@@ -1237,12 +1247,15 @@
               fields: [ {
                       label: "TILE ID:",
                       name: "tile_id",
+                      type: "text"
                   }, {
                       label: "MAIN TEXT:",
-                      name: "tile_main_text"
+                      name: "tile_main_text",
+                      type: "text"
                   }, {
                       label: "TOP HEADING:",
-                      name: "top_heading"
+                      name: "top_heading",
+                      type: "text"
                   }, {
                       label: "IMAGE:",
                       name: "tile_image", 
@@ -1355,12 +1368,15 @@
               fields: [ {
                       label: "TILE ID:",
                       name: "testimonial_id",
+                      type: "text"
                   }, {
                       label: "CUSTOMER NAME:",
-                      name: "customer_name"
+                      name: "customer_name",
+                      type: "text"
                   }, {
                       label: "CUSTOMER MESSAGE:",
-                      name: "customer_message"
+                      name: "customer_message",
+                      type: "text"
                   }, {
                       label: "CUSTOMER IMAGE:",
                       name: "customer_image", 

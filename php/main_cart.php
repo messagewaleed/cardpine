@@ -50,7 +50,6 @@
                             $sub_total = ($quantity*$card_data['card_price']);
 
                             $total = $total + $sub_total;
-
                           ?>
                             <tr id="<?php echo ($row['card_id']);?>_tr">
                               <td><a class="remove remove_cart" data="<?php echo ($_SESSION['user']);?>,<?php echo ($row['card_id']);?>" href="#"><fa class="fa fa-close"></fa></a></td>
