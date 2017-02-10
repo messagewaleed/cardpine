@@ -19,6 +19,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">   
+
     <!-- SmartMenus jQuery Bootstrap Addon CSS -->
     <link href="css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
     <!-- Product view slider -->
@@ -65,343 +66,313 @@
   <?php include './php/header.php';  ?> 
 
 
- <!-- Cart view section -->
-	 <section id="checkout">
-	   <div class="container">
-	     <div class="row">
-	       <div class="col-md-12">
-	        <div class="checkout-area">
-	          <form action="">
-	            <div class="row">
-	              <div class="col-md-8">
-	                <div class="checkout-left">
-	                  <div class="panel-group" id="accordion">
-	                    <!-- Coupon section -->
-	                    <div class="panel panel-default aa-checkout-coupon">
-	                      <div class="panel-heading">
-	                        <h4 class="panel-title">
-	                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-	                            Have a Coupon?
+<div id="main_page_content" >
+	 <!-- Cart view section -->
+		 <section id="checkout">
+		   	<div class="container">
+		    	 <div class="row">
+		       <div class="col-md-12">
+		        <div class="checkout-area">
+		          <form action="">
+		            <div class="row">
+		              <div id="wizard" class="form_wizard wizard_horizontal">
+	                      <ul class="wizard_steps">
+	                        <li>
+	                          <a href="#step-1">
+	                            <span class="step_no">1</span>
 	                          </a>
-	                        </h4>
-	                      </div>
-	                      <div id="collapseOne" class="panel-collapse collapse in">
-	                        <div class="panel-body">
-	                          <input type="text" placeholder="Coupon Code" class="aa-coupon-code">
-	                          <input type="submit" value="Apply Coupon" class="aa-browse-btn">
-	                        </div>
-	                      </div>
-	                    </div>
-	                    <!-- Login section -->
-	                    <div class="panel panel-default aa-checkout-login">
-	                      <div class="panel-heading">
-	                        <h4 class="panel-title">
-	                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-	                            Client Login 
+	                        </li>
+	                        <li>
+	                          <a href="#step-2">
+	                            <span class="step_no">2</span>
 	                          </a>
-	                        </h4>
-	                      </div>
-	                      <div id="collapseTwo" class="panel-collapse collapse">
-	                        <div class="panel-body">
-	                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-	                          <input type="text" placeholder="Username or email">
-	                          <input type="password" placeholder="Password">
-	                          <button type="submit" class="aa-browse-btn">Login</button>
-	                          <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-	                          <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    <!-- Billing Details -->
-	                    <div class="panel panel-default aa-checkout-billaddress">
-	                      <div class="panel-heading">
-	                        <h4 class="panel-title">
-	                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-	                            Billing Details
+	                        </li>
+	                        <li>
+	                          <a href="#step-3">
+	                            <span class="step_no">3</span>
 	                          </a>
-	                        </h4>
-	                      </div>
-	                      <div id="collapseThree" class="panel-collapse collapse">
-	                        <div class="panel-body">
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="First Name*">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Last Name*">
-	                              </div>
-	                            </div>
-	                          </div> 
-	                          <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Company name">
-	                              </div>                             
-	                            </div>                            
-	                          </div>  
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="email" placeholder="Email Address*">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="tel" placeholder="Phone*">
-	                              </div>
-	                            </div>
-	                          </div> 
-	                          <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <textarea cols="8" rows="3">Address*</textarea>
-	                              </div>                             
-	                            </div>                            
-	                          </div>   
-	                          <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <select>
-	                                  <option value="0">Select Your Country</option>
-	                                  <option value="1">Australia</option>
-	                                  <option value="2">Afganistan</option>
-	                                  <option value="3">Bangladesh</option>
-	                                  <option value="4">Belgium</option>
-	                                  <option value="5">Brazil</option>
-	                                  <option value="6">Canada</option>
-	                                  <option value="7">China</option>
-	                                  <option value="8">Denmark</option>
-	                                  <option value="9">Egypt</option>
-	                                  <option value="10">India</option>
-	                                  <option value="11">Iran</option>
-	                                  <option value="12">Israel</option>
-	                                  <option value="13">Mexico</option>
-	                                  <option value="14">UAE</option>
-	                                  <option value="15">UK</option>
-	                                  <option value="16">USA</option>
-	                                </select>
-	                              </div>                             
-	                            </div>                            
+	                        </li>
+	                        <li>
+	                          <a href="#step-4">
+	                            <span class="step_no">4</span>
+	                          </a>
+	                        </li>
+	                      </ul>
+
+		                      <div class="panel-group" id="step-1">
+
+		                        <!-- Billing Details -->
+		                        <div class="panel panel-default aa-checkout-billaddress">
+		                          <div class="panel-heading">
+		                            <h4 class="panel-title">
+		                              <a>
+		                                Billing Details
+		                              </a>
+		                            </h4>
+		                          </div>
+		                          <div id="collapseThree" class="panel-collapse collapse in">
+		                            <div class="panel-body">
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="billing_first_name"  required="" placeholder="First Name*" class="form-control parsley-success" data-parsley-id="200" /><ul class="parsley-errors-list" id="parsley-id-200"></ul>
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="billing_last_name" required="" placeholder="Last Name*" class="form-control parsley-success" data-parsley-id="201" /><ul class="parsley-errors-list" id="parsley-id-201"></ul>
+		                                  </div>
+		                                </div>
+		                              </div> 
+		                              <div class="row">
+		                                <div class="col-md-12">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" name="billing_company_name" class="form-control" placeholder="Company name">
+		                                  </div>                             
+		                                </div>                            
+		                              </div>  
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="email" id="billing_email" required="" placeholder="Email Address*" class="form-control parsley-success" data-parsley-id="202" /><ul class="parsley-errors-list" id="parsley-id-202"></ul>
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="tel" id="billing_tel" required="" placeholder="Phone*" class="form-control parsley-success" data-parsley-id="203" /><ul class="parsley-errors-list" id="parsley-id-203"></ul>
+		                                  </div>
+		                                </div>
+		                              </div> 
+		                              <div class="row">
+		                                <div class="col-md-12">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <textarea id="billing_address" required="" class="form-control parsley-success" data-parsley-id="204" placeholder="Address*" rows="3"></textarea><ul class="parsley-errors-list" id="parsley-id-204"></ul>
+		                                  </div>                             
+		                                </div>                            
+		                              </div>   
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="billing_appartment" class="form-control" placeholder="Appartment, Suite etc.">
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="billing_city" required="" placeholder="City / Town*" class="form-control parsley-success" data-parsley-id="205" /><ul class="parsley-errors-list" id="parsley-id-205"></ul>
+		                                  </div>
+		                                </div>
+		                              </div>   
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="billing_district" required="" placeholder="District*" class="form-control parsley-success" data-parsley-id="206" /><ul class="parsley-errors-list" id="parsley-id-206"></ul>
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="number" id="billing_pincode" required="" placeholder="Pincode / ZIP*" class="form-control parsley-success" data-parsley-id="207" /><ul class="parsley-errors-list" id="parsley-id-207"></ul>
+		                                  </div>
+		                                </div>
+		                              </div>                                    
+		                            </div>
+		                          </div>
+		                        </div>
+
+		                      </div>
+
+
+		                      <div class="panel-group" id="step-2">
+
+		                        <!-- Shipping Address -->
+		                        <div  class="panel panel-default aa-checkout-billaddress">
+		                          <div class="panel-heading">
+		                            <h4 class="panel-title">
+		                              <a>
+		                                Shippping Address
+		                              </a>
+		                            </h4>
+		                          </div>
+		                          <div id="collapseFour" class="panel-collapse collapse in">
+		                            <div class="panel-body">
+		                             <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="shipping_first_name" required="" placeholder="First Name*" class="form-control parsley-success" data-parsley-id="208" /><ul class="parsley-errors-list" id="parsley-id-208"></ul>
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="shipping_last_name" required="" placeholder="Last Name*" class="form-control parsley-success" data-parsley-id="209" /><ul class="parsley-errors-list" id="parsley-id-209"></ul>
+		                                  </div>
+		                                </div>
+		                              </div> 
+		                              <div class="row">
+		                                <div class="col-md-12">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="shipping_company_name" class="form-control" placeholder="Company name">
+		                                  </div>                             
+		                                </div>                            
+		                              </div>  
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="email" id="shipping_email" required="" placeholder="Email Address*" class="form-control parsley-success" data-parsley-id="210" /><ul class="parsley-errors-list" id="parsley-id-210"></ul>
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="tel" id="shipping_tel" required="" placeholder="Phone*" class="form-control parsley-success" data-parsley-id="211" /><ul class="parsley-errors-list" id="parsley-id-211"></ul>
+		                                  </div>
+		                                </div>
+		                              </div> 
+		                              <div class="row">
+		                                <div class="col-md-12">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <textarea id="shipping_address" required="" placeholder="Address*" class="form-control parsley-success" data-parsley-id="212" rows="3"></textarea><ul class="parsley-errors-list" id="parsley-id-212"></ul>
+		                                  </div>                             
+		                                </div>                            
+		                              </div>   
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="shipping_appartment" placeholder="Appartment, Suite etc.">
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="shipping_city" required="" placeholder="City / Town*" class="form-control parsley-success" data-parsley-id="213" /><ul class="parsley-errors-list" id="parsley-id-213"></ul>
+		                                  </div>
+		                                </div>
+		                              </div>   
+		                              <div class="row">
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="text" id="shipping_district" required="" placeholder="District*" class="form-control parsley-success" data-parsley-id="214" /><ul class="parsley-errors-list" id="parsley-id-214"></ul>
+		                                  </div>                             
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <div class="aa-checkout-single-bill">
+		                                    <input type="number" id="shipping_pincode" required="" placeholder="Pincode / ZIP*" class="form-control parsley-success" data-parsley-id="215" /><ul class="parsley-errors-list" id="parsley-id-215"></ul>
+		                                  </div>
+		                                </div>
+		                              </div>              
+		                            </div>
+		                          </div>
+		                        </div>
+
+		                      </div>
+
+
+	                      <div class="panel-group" id="step-3">
+
+	                      	<!-- Order Summary -->
+	                        <div class="panel panel-default aa-checkout-odersummary">
+	                          <div class="panel-heading">
+	                            <h4 class="panel-title">
+	                              <a>
+	                                Order Summary 
+	                              </a>
+	                            </h4>
 	                          </div>
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Appartment, Suite etc.">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="City / Town*">
-	                              </div>
-	                            </div>
-	                          </div>   
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="District*">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Postcode / ZIP*">
-	                              </div>
-	                            </div>
-	                          </div>                                    
+	                          <div id="collapseFour" class="panel-collapse collapse in">
+		                        <div class="aa-order-summary-area">
+		                          <table class="table table-responsive">
+		                            <thead>
+		                              <tr>
+		                                <th>Product</th>
+		                                <th>Total</th>
+		                              </tr>
+		                            </thead>
+		                            <tbody>
+		                              <?php 
+
+		                                $sql = "SELECT * FROM user_cart WHERE user_email = '".$_SESSION['user']."'";
+		                                $result = $conn->query($sql);
+
+		                                $total=0;
+		                                  $sub_total=0;
+
+		                                  while ($row = $result->fetch_assoc()) {
+
+		                                    $quantity = $row['total_quantity'];
+
+		                                    $card_sql = "SELECT card_name,card_image,card_price FROM cards WHERE card_id = ".$row['card_id'];
+
+		                                    $res = $conn->query($card_sql);
+
+		                                    $card_data = $res->fetch_assoc();
+
+		                                    $sub_total = ($quantity*$card_data['card_price']);
+
+		                                    $total = $total + $sub_total;
+
+		                              ?>
+
+		                              <tr>
+		                                <td><?= $card_data['card_name']?> <strong> x  <?= $quantity?></strong></td>
+		                                <td>RS <?= $sub_total ?></td>
+		                              </tr>
+
+		                              <?php 
+		                                }
+		                              ?>
+		                            </tbody>
+		                            <tfoot>
+		                              <tr>
+		                                <th>Subtotal</th>
+		                                <td>RS <?= $total ?></td>
+		                              </tr>
+		                               <tr>
+		                                <th>Total</th>
+		                                <td>$RS <?= $total ?></td>
+		                              </tr>
+		                            </tfoot>
+		                          </table>
+		                        </div>
+		                      </div>
 	                        </div>
+
 	                      </div>
-	                    </div>
-	                    <!-- Shipping Address -->
-	                    <div class="panel panel-default aa-checkout-billaddress">
-	                      <div class="panel-heading">
-	                        <h4 class="panel-title">
-	                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-	                            Shippping Address
-	                          </a>
-	                        </h4>
-	                      </div>
-	                      <div id="collapseFour" class="panel-collapse collapse">
-	                        <div class="panel-body">
-	                         <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="First Name*">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Last Name*">
-	                              </div>
-	                            </div>
-	                          </div> 
-	                          <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Company name">
-	                              </div>                             
-	                            </div>                            
-	                          </div>  
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="email" placeholder="Email Address*">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="tel" placeholder="Phone*">
-	                              </div>
-	                            </div>
-	                          </div> 
-	                          <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <textarea cols="8" rows="3">Address*</textarea>
-	                              </div>                             
-	                            </div>                            
-	                          </div>   
-	                          <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <select>
-	                                  <option value="0">Select Your Country</option>
-	                                  <option value="1">Australia</option>
-	                                  <option value="2">Afganistan</option>
-	                                  <option value="3">Bangladesh</option>
-	                                  <option value="4">Belgium</option>
-	                                  <option value="5">Brazil</option>
-	                                  <option value="6">Canada</option>
-	                                  <option value="7">China</option>
-	                                  <option value="8">Denmark</option>
-	                                  <option value="9">Egypt</option>
-	                                  <option value="10">India</option>
-	                                  <option value="11">Iran</option>
-	                                  <option value="12">Israel</option>
-	                                  <option value="13">Mexico</option>
-	                                  <option value="14">UAE</option>
-	                                  <option value="15">UK</option>
-	                                  <option value="16">USA</option>
-	                                </select>
-	                              </div>                             
-	                            </div>                            
+
+	                      <div class="panel-group" id="step-4">
+
+	                      	<!-- Payment Options -->
+	                        <div class="panel panel-default aa-checkout-paymentoption">
+	                          <div class="panel-heading">
+	                            <h4 class="panel-title">
+	                              <a>
+	                                Payment Options 
+	                              </a>
+	                            </h4>
 	                          </div>
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Appartment, Suite etc.">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="City / Town*">
-	                              </div>
-	                            </div>
-	                          </div>   
-	                          <div class="row">
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="District*">
-	                              </div>                             
-	                            </div>
-	                            <div class="col-md-6">
-	                              <div class="aa-checkout-single-bill">
-	                                <input type="text" placeholder="Postcode / ZIP*">
-	                              </div>
-	                            </div>
-	                          </div> 
-	                           <div class="row">
-	                            <div class="col-md-12">
-	                              <div class="aa-checkout-single-bill">
-	                                <textarea cols="8" rows="3">Special Notes</textarea>
-	                              </div>                             
-	                            </div>                            
-	                          </div>              
+	                          <div id="collapseFour" class="panel-collapse collapse in">
+		                        <div class="aa-payment-method">                    
+		                          <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
+		                          <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
+		                          <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
+		                          <input type="submit" value="Place Order" class="aa-browse-btn">                
+		                        </div>
+		                      </div>
 	                        </div>
 	                      </div>
 	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	              <div class="col-md-4">
-	                <div class="checkout-right">
-	                  <h4>Order Summary</h4>
-	                  <div class="aa-order-summary-area">
-	                    <table class="table table-responsive">
-	                      <thead>
-	                        <tr>
-	                          <th>Product</th>
-	                          <th>Total</th>
-	                        </tr>
-	                      </thead>
-	                      <tbody>
-	                      	<?php 
+		            </div>
+		          </form>
+		         </div>
+		       </div>
+		     </div>
+		   </div>
+		 </section>
+	 <!-- / Cart view section -->
 
-	                      		$sql = "SELECT * FROM user_cart WHERE user_email = '".$_SESSION['user']."'";
-    							$result = $conn->query($sql);
+	 <form id="hidden_form" hidden>
 
-    							$total=0;
-	                            $sub_total=0;
+	 	<input type="text" name="email" value="<?= $_SESSION['user']?>" />
+	 	<textarea id="full_billing_address" name="billing_address"></textarea>
+	 	<textarea id="full_shipping_address" name="shipping_address"></textarea>
 
-	                            while ($row = $result->fetch_assoc()) {
-
-		                            $quantity = $row['total_quantity'];
-
-		                            $card_sql = "SELECT card_name,card_image,card_price FROM cards WHERE card_id = ".$row['card_id'];
-
-		                            $res = $conn->query($card_sql);
-
-		                            $card_data = $res->fetch_assoc();
-
-		                            $sub_total = ($quantity*$card_data['card_price']);
-
-		                            $total = $total + $sub_total;
-
-	                      	?>
-
-	                        <tr>
-	                          <td><?= $card_data['card_name']?> <strong> x  <?= $quantity?></strong></td>
-	                          <td>RS <?= $sub_total ?></td>
-	                        </tr>
-
-	                        <?php 
-	                        	}
-	                        ?>
-	                      </tbody>
-	                      <tfoot>
-	                        <tr>
-	                          <th>Subtotal</th>
-	                          <td>RS <?= $total ?></td>
-	                        </tr>
-	                         <tr>
-	                          <th>Tax</th>
-	                          <td>20</td>
-	                        </tr>
-	                         <tr>
-	                          <th>Total</th>
-	                          <td>$RS <?= $total+20; ?></td>
-	                        </tr>
-	                      </tfoot>
-	                    </table>
-	                  </div>
-	                  <h4>Payment Method</h4>
-	                  <div class="aa-payment-method">                    
-	                    <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-	                    <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
-	                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
-	                    <input type="submit" value="Place Order" class="aa-browse-btn">                
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </form>
-	         </div>
-	       </div>
-	     </div>
-	   </div>
-	 </section>
- <!-- / Cart view section -->
+	 </form>
+ </div>
 
 <?php include './php/footer.php';  ?>  
 
@@ -433,6 +404,10 @@
 
   <!-- login/register -->
   <script type="text/javascript" src="js/my_script.js"></script>
+
+  <!-- jQuery Smart Wizard -->
+  <script src="allow_me/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+
 
 
 

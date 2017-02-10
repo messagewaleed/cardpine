@@ -224,20 +224,8 @@
                       <div class="clearfix"></div>
                     </div>
 
-                    
-
                     <div class="x_content" style="display: block;">
                       <table id="slider_datatable-responsive" class="table table-striped table-bordered dt-responsive wrap" cellspacing="0" width="100%">
-                        <thead>
-                          <tr>
-                            <th>SLIDER ID</th>
-                            <th>MAIN TEXT</th>
-                            <th>TOP HEADING</th>
-                            <th>BOTTOM HEADIND</th>
-                            <th>SLIDER IMAGE</th>
-                            <th>STATUS</th>
-                          </tr>
-                        </thead>
                       </table>  
                     </div>
                   </div>
@@ -257,15 +245,6 @@
 
                       <div class="x_content" style="display: block;">
                         <table id="tiles_datatable-responsive" class="table table-striped table-bordered dt-responsive wrap" cellspacing="0" width="100%">
-                        <thead>
-                          <tr>
-                            <th>TILE ID</th>
-                            <th>MAIN TEXT</th>
-                            <th>TOP HEADING</th>
-                            <th>TILE IMAGE</th>
-                            <th>ON LEFT</th>
-                          </tr>
-                        </thead>
                       </table>
 
   
@@ -446,14 +425,6 @@
 
                   <div class="x_content" style="display: block;">
                     <table id="category_datatable-responsive" class="table table-striped table-bordered dt-responsive wrap" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th>CATEGORY ID</th>
-                          <th>CATEGORY NAME</th>
-                          <th>CATEGORY DESCRIPTION</th>
-                          <th>STOCK</th>
-                        </tr>
-                      </thead>
                     </table>  
                   </div>
                 </div>
@@ -474,18 +445,6 @@
 
                   <div class="x_content" style="display: block;">
                     <table id="card_datatable-responsive" class="table table-striped table-bordered dt-responsive wrap" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>CARD NAME</th>
-                          <th>CARD DESCRIPTION</th>
-                          <th>CARD PRICE</th>
-                          <th>CARD CATEGORY</th>
-                          <th>CARD IMAGE</th>
-                          <th>CARD ON HOME</th>
-                          <th>LATEST</th>
-                        </tr>
-                      </thead>
                     </table>  
                   </div>
                 </div>
@@ -506,15 +465,6 @@
 
                   <div class="x_content" style="display: block;">
                     <table id="testimonials_datatable-responsive" class="table table-striped table-bordered dt-responsive wrap" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th>TESTIMONIAL ID</th>
-                          <th>CUSTOMER NAME</th>
-                          <th>CUSTOMER MESSAGE</th>
-                          <th>CUSTOMES IMAGE</th>
-                          <th>ON HOME</th>
-                        </tr>
-                      </thead>
                     </table>  
                   </div>
 
@@ -579,9 +529,13 @@
     <script src="vendors/datatables.net/extensions/Responsive/js/responsive.bootstrap.js"></script>
     <script src="vendors/datatables.net/extensions/Scroller/js/dataTables.scroller.min.js"></script>
     <script src="vendors/datatables.net/extensions/Select/js/dataTables.select.min.js"></script>
-    <script src="vendors/datatables.net-editor/js/dataTables.editor.js"></script>
-    <!-- <script src="vendors/datatables.net-editor/js/working_editor_js/dataTables.editor.js"></script>
-     -->
+    <script src="js/dataTables.altEditor.js"></script>
+   <!--  <script src="vendors/datatables.net-editor/js/dataTables.editor.js"></script>
+    <script src="vendors/google-datatable-editor/jquery.jeditable.js"></script>
+    <script src="vendors/google-datatable-editor/jquery-ui.js"></script>
+    <script src="vendors/google-datatable-editor/jquery.dataTables.editable.js"></script> -->
+
+
 
 
 
@@ -634,10 +588,19 @@
 <!-- collapsable content -->
 <script>
 
+var initalized_slider,initalized_category,initalized_tiles,initalized_testimonial,initalized_card;
 
   $('#add_slider').click(function() {
 
-
+    if (!initalized_slider) 
+    {
+      init_slider();
+      initalized_slider = true;
+    }
+    else
+    {
+      sliderDatatable.ajax.reload();
+    }
     $(".link").removeClass('active');
     $("#home_nav .link").addClass('active');
 
@@ -665,6 +628,16 @@
   });
 
   $('#add_tile').click(function() {
+
+    if (!initalized_tiles) 
+    {
+      init_tiles();
+      initalized_tiles = true;
+    }
+    else
+    {
+      tilesDatatable.ajax.reload();
+    }
 
     $(".link").removeClass('active');
     $("#home_nav .link").addClass('active');
@@ -761,6 +734,16 @@
 
   $("#category_nav").click(function(){
 
+    if (!initalized_category) 
+    {
+      init_category();
+      initalized_category = true;
+    }
+    else
+    {
+      categoryDatatable.ajax.reload();
+    }
+    
     $(".link").removeClass('active');
     $("#category_nav .link").addClass('active');
     $("#content_main").slideDown();
@@ -773,6 +756,16 @@
 
   $("#edit_card_nav").click(function(){
 
+    if (!initalized_card) 
+    {
+      init_card();
+      initalized_card = true;
+    }
+    else
+    {
+      cardDatatable.ajax.reload();
+    }
+    
     $(".link").removeClass('active');
     $("#edit_card_nav .link").addClass('active');
     $("#content_main").slideDown();
@@ -785,6 +778,16 @@
 
   $("#edit_testimonials_nav").click(function(){
 
+    if (!initalized_testimonial) 
+    {
+      init_testimonials();
+      initalized_testimonial = true;
+    }
+    else
+    {
+      testimonialDatatable.ajax.reload();
+    }
+    
     $(".link").removeClass('active');
     $("#edit_testimonials_nav .link").addClass('active');
     $("#content_main").slideDown();
@@ -808,687 +811,350 @@
 <!-- Datatables -->
 <script>
 
-  var slider_editor,category_editor,card_editor,tiles_editor,testimonials_editor;
+var is_latest,is_category,cardDatatable,sliderDatatable,tilesDatatable,categoryDatatable,testimonialDatatable;
+
 
   $(document).ready(function() {
 
-    {
-          slider_editor = new $.fn.dataTable.Editor( {
-              ajax: "./php/get_slider_data.php",
-              keys: true,
-              table: "#slider_datatable-responsive",
-              idSrc:  'slider_id',
-              fields: [ 
-                  {
-                      label: "SLIDER ID:",
-                      name: "slider_id",
-                  }, 
-                  {
-                      label: "MAIN TEXT:",
-                      name: "main_text",
-                  }, 
-                  {
-                      label: "TOP HEADING:",
-                      name: "sub_heading_top",
-                  }, 
-                  {
-                      label: "BOTTOM HEADING:",
-                      name: "sub_heading_bottom",
-                  }, 
-                  {
-                      label: "IMAGE:",
-                      name: "background_img", 
-                  }, 
-                  {
-                      label: "STATUS:",
-                      name: "status",
-                      type:  "select",
-                      options: [
-                          { label: "published", value: "published" },
-                          { label: "unpublished", value: "unpublished" } 
-                        ]
-                  }
-            ]
-          } );
-
-          $('#slider_datatable-responsive').DataTable({
-              dom: "Bfrtip",
-              ajax: "./php/get_slider_data.php",
-              columns: [
-                  { 
-                    data: "slider_id", 
-                    
-                  },
-                  { 
-                    data: "main_text",
-                    className: 'editable'
-                  },
-                  { 
-                    data: "sub_heading_top", 
-                    className: 'editable'
-                  },
-                  { 
-                    data: "sub_heading_bottom",
-                    className: 'editable'
-                  },
-                  { 
-                    data: "background_img",
-                    className: 'editable'
-                  },
-                  { 
-                    data: "status", 
-                    className: 'editable'
-                  }
-              ],
-              order: [ 0, 'asc' ],
-              keys: {
-                  columns: ':not(:first-child)',
-                  keys: [ 9 ]
-              },
-              buttons: [
-                
-              ]
-          });
-
-
-          $('#slider_datatable-responsive').on( 'click', 'tbody td.editable', function (e) {
-              slider_editor.inline( this, {
-                  submitOnBlur: true
-              } );
-          } );
-
-          $('#slider_datatable-responsive').on( 'key-focus', function ( e, datatable, cell ) {
-              slider_editor.inline( cell.index() , {
-                  
-                  submitOnBlur: true
-              });
-          } );
-
-
-
-          // slider_editor.on( 'preSubmit', function ( e, o, action ) {
-
-          //     if ( action !== 'remove' ) {
-
-          //         var main_text = slider_editor.field( 'main_text' );
-          //         var sub_heading_top = slider_editor.field( 'sub_heading_top' );
-          //         var sub_heading_bottom = slider_editor.field( 'sub_heading_bottom' );
-          //         var background_img = slider_editor.field( 'background_img' ); 
-          //         // Only validate user input values - different values indicate that
-          //         // the end user has not entered a value
-          //         if ( ! main_text.isMultiValue() ) {
-          //             if ( ! main_text.val() ) {
-          //                 main_text.error( 'Value is required' );
-          //             }
-          //         }
-
-          //         if ( ! sub_heading_top.isMultiValue() ) {
-          //             if ( ! sub_heading_top.val() ) {
-          //                 sub_heading_top.error( 'Value is required' );
-          //             }
-          //         }
-
-          //         if ( ! sub_heading_bottom.isMultiValue() ) {
-          //             if ( ! sub_heading_bottom.val() ) {
-          //                 sub_heading_bottom.error( 'Value is required' );
-          //             }
-          //         }
-
-          //         var ext = background_img.val().split('.').pop();
-          //         if ( ! background_img.isMultiValue() ) {
-          //             if ( ext !== 'jpg' && ext !== 'png' ) {
-          //                 background_img.error( 'Please upload an image (jpg or png only).' );
-          //             }
-          //         }
-
-
-          //         // ... additional validation rules
-       
-          //         // If any error was reported, cancel the submission so it can be corrected
-          //         if ( this.inError() ) {
-          //             return false;
-          //         }
-          //     }
-
-          // } );
-    }
-
-    // {
-    //   category_editor = new $.fn.dataTable.Editor( {
-    //         ajax: "./php/get_category_data.php",
-    //         keys: true,
-    //         table: "#category_datatable-responsive",
-    //         idSrc:  'category_id',
-    //         fields: [  {
-    //                 label: "CATEGORY NAME:",
-    //                 name: "category_name",
-    //                 type: "text"
-    //             }, {
-    //                 label: "CATEGORY DESCRIPTION:",
-    //                 name: "category_description",
-    //                 type: "textarea"
-    //             }
-    //         ]
-    //     } );
-
-
-    //   $('#category_datatable-responsive').DataTable({
-    //       dom: "Bfrtip",
-    //       ajax: "./php/get_category_data.php",
-    //       columns: [
-    //           { 
-    //             data: "category_id", 
-                
-    //           },
-    //           { 
-    //             data: "category_name",
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "category_description", 
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "stock",
-    //           }
-    //       ],
-    //       order: [ 0, 'asc' ],
-    //       keys: {
-    //           columns: [1,2],
-    //           keys: [ 9 ]
-    //       },
-    //       buttons: [
-    //         { extend:"create", editor:category_editor },
-    //       ]
-    //   });
-
-
-    //   $('#category_datatable-responsive').on( 'click', 'tbody td.editable', function (e) {
-    //       category_editor.inline( this, {
-    //           submitOnBlur: true
-    //       } );
-    //   } );
-
-    //   $('#category_datatable-responsive').on( 'key-focus', function ( e, datatable, cell ) {
-    //       category_editor.inline( cell.index() , {
-    //           submitOnBlur: true
-    //       });
-    //   } );
-
-    //   category_editor.on( 'preSubmit', function ( e, o, action ) {
-
-    //       if ( action !== 'remove' ) {
-
-    //           var category_name = category_editor.field( 'category_name' );
-    //           var category_description = category_editor.field( 'category_description' );
-              
-    //           // Only validate user input values - different values indicate that
-    //           // the end user has not entered a value
-    //           if ( ! category_name.isMultiValue() ) {
-    //               if ( ! category_name.val() ) {
-    //                   category_name.error( 'Value is required' );
-    //               }
-    //           }
-
-    //           if ( ! category_description.isMultiValue() ) {
-    //               if ( ! category_description.val() ) {
-    //                   category_description.error( 'Value is required' );
-    //               }
-    //           }
-
-    //           // ... additional validation rules
-   
-    //           // If any error was reported, cancel the submission so it can be corrected
-    //           if ( this.inError() ) {
-    //               return false;
-    //           }
-    //       }
-
-    //   } );
-    // }
-
-    // {
-    //   card_editor = new $.fn.dataTable.Editor( {
-    //     ajax: "./php/get_card_data.php",
-    //     keys: true,
-    //     table: "#card_datatable-responsive",
-    //     idSrc:  'card_id',
-    //     fields: [ {
-    //             label: "CARD NAME:",
-    //             name: "card_name",
-    //             type: "text"
-    //         }, {
-    //             label: "CARD DESCRIPTION:",
-    //             name: "card_description",
-    //             type: "textarea"
-    //         }, {
-    //             label: "CARD PRICE:",
-    //             name: "card_price",
-    //             type: "text"
-    //         }, {
-    //             label: "CARD CATEGORY:",
-    //             name: "card_category",
-    //             type: "select",
-    //         }, {
-    //             label: "CARd IMAGE:",
-    //             name: "card_image", 
-    //             type: "upload"
-    //         }, {
-    //             label: "CARD ON HOME:",
-    //             name: "on_home",
-    //             type:  "select",
-    //             options: [
-    //                 { label: "no", value: "no" },
-    //                 { label: "yes", value: "yes" } 
-    //               ]
-    //         }, {
-    //             label: "LATEST:",
-    //             name: "is_latest",
-    //             type:  "select",
-    //         }
-    //       ]
-    //   });
-
-
-    //   $.post("./php/get_category_data.php",{getOptions:"yes"},function(data){
-
-    //   card_editor.field('card_category').update(data);
-
-    //   },"json");
-
-
-    //   card_editor.on('initCreate',function(){
-
-    //     card_editor.field('is_latest').hide();
-    //     card_editor.field('on_home').hide();
-
-    //   });
-
-
-    //   $('#card_datatable-responsive').DataTable({
-    //       dom: "Bfrtip",
-    //       ajax: "./php/get_card_data.php",
-    //       columns: [  
-    //           {
-    //             data: null,
-    //             defaultContent: '',
-    //             className: 'select-checkbox',
-    //             orderable: false
-    //           },
-    //           { 
-    //             data: "card_name",
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "card_description", 
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "card_price",
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "card_category",
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "card_image", 
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "on_home", 
-    //             className: 'editable'
-    //           },
-    //           { 
-    //             data: "is_latest", 
-    //             className: 'editable'
-    //           }
-    //       ],
-    //       select: {
-    //         style:    'os',
-    //         selector: 'td:first-child'
-    //       },
-    //       order: [ 1, 'asc' ],
-    //       keys: {
-    //           columns: ':not(:first-child)', 
-    //           keys: [ 9 ]
-    //       },
-    //       buttons: [
-    //         {extend:"create", editor:card_editor},
-    //         {extend:"remove", editor:card_editor}
-    //       ]
-    //   });
-
-
-    //   $('#card_datatable-responsive').on( 'click', 'tbody td.editable', function (e) {
-
-    //       $.post("./php/get_card_data.php",{getLatest:"yes"},function(data){
-
-    //       card_editor.field('is_latest').update(data);
-
-    //       },"json");
-
-
-    //       card_editor.inline( this, {
-    //           submitOnBlur: true
-    //       } );
-    //   } );
-
-    //   $('#card_datatable-responsive').on( 'key-focus', function ( e, datatable, cell ) {
-
-    //       $.post("./php/get_card_data.php",{getLatest:"yes"},function(data){
-
-    //       card_editor.field('is_latest').update(data);
-
-    //       },"json");
-
-    //       card_editor.inline( cell.index() , {
-    //           submitOnBlur: true
-    //       });
-    //   } );
-
-
-
-    //   card_editor.on( 'preSubmit', function ( e, o, action ) {
-
-    //       if ( action !== 'remove' ) {
-
-    //           var card_name = card_editor.field( 'card_name' );
-    //           var card_description = card_editor.field( 'card_description' );
-    //           var card_price = card_editor.field( 'card_price' );
-    //           var card_image = card_editor.field( 'card_image' ); 
-    //           // Only validate user input values - different values indicate that
-    //           // the end user has not entered a value
-    //           if ( ! card_name.isMultiValue() ) {
-    //               if ( ! card_name.val() ) {
-    //                   card_name.error( 'Value is required' );
-    //               }
-    //           }
-
-    //           if ( ! card_description.isMultiValue() ) {
-    //               if ( ! card_description.val() ) {
-    //                   card_description.error( 'Value is required' );
-    //               }
-    //           }
-
-    //           if ( ! card_price.isMultiValue() ) {
-    //               if ( ! card_price.val() ) {
-    //                   card_price.error( 'Value is required' );
-    //               }
-    //           }
-
-    //           var ext = card_image.val().split('.').pop();
-    //           if ( ! card_image.isMultiValue() ) {
-    //               if ( ext !== 'jpg' && ext !== 'png' ) {
-    //                   card_image.error( 'Please upload an image (jpg or png only).' );
-    //               }
-    //           }
-
-
-    //           // ... additional validation rules
-   
-    //           // If any error was reported, cancel the submission so it can be corrected
-    //           if ( this.inError() ) {
-    //               return false;
-    //           }
-    //       }
-
-    //   } );
-    // }
-
-    // {
-    //       tiles_editor = new $.fn.dataTable.Editor( {
-    //           ajax: "./php/get_tiles_data.php",
-    //           keys: true,
-    //           table: "#tiles_datatable-responsive",
-    //           idSrc:  'tile_id',
-    //           fields: [ {
-    //                   label: "TILE ID:",
-    //                   name: "tile_id",
-    //                   type: "text"
-    //               }, {
-    //                   label: "MAIN TEXT:",
-    //                   name: "tile_main_text",
-    //                   type: "text"
-    //               }, {
-    //                   label: "TOP HEADING:",
-    //                   name: "top_heading",
-    //                   type: "text"
-    //               }, {
-    //                   label: "IMAGE:",
-    //                   name: "tile_image", 
-    //                   type: "upload"
-    //               },
-    //               {
-    //                   label: "LEFT IMAGE:",
-    //                   name: "tile_on_left", 
-    //                   type: "select",
-    //                   options: [
-    //                     { label: "select for left", value: "-1" },
-    //                     { label: "yes", value: "yes" }
-                        
-    //                   ]
-    //               }
-    //           ]
-    //       } );
-
-
-    //       $('#tiles_datatable-responsive').DataTable({
-    //           dom: "Bfrtip",
-    //           ajax: "./php/get_tiles_data.php",
-    //           columns: [
-    //               { 
-    //                 data: "tile_id", 
-                    
-    //               },
-    //               { 
-    //                 data: "tile_main_text",
-    //                 className: 'editable'
-    //               },
-    //               { 
-    //                 data: "top_heading", 
-    //                 className: 'editable'
-    //               },
-                  
-    //               { 
-    //                 data: "tile_image",
-    //                 className: 'editable'
-    //               },
-
-    //               { 
-    //                 data: "tile_on_left",
-    //                 className: 'editable'
-    //               },
-    //           ],
-    //           order: [ 0, 'asc' ],
-    //           keys: {
-    //               columns: ':not(:first-child)',
-    //               keys: [ 9 ]
-    //           },
-    //           buttons: [
-                
-    //           ]
-    //       });
-
-
-    //       $('#tiles_datatable-responsive').on( 'click', 'tbody td.editable', function (e) {
-    //           tiles_editor.inline( this, {
-    //               submitOnBlur: true
-    //           } );
-    //       } );
-
-    //       $('#tiles_datatable-responsive').on( 'key-focus', function ( e, datatable, cell ) {
-    //           tiles_editor.inline( cell.index() , {
-    //               submitOnBlur: true
-    //           });
-    //       } );
-
-    //       tiles_editor.on( 'preSubmit', function ( e, o, action ) {
-
-    //         if ( action !== 'remove' ) {
-
-    //             var tile_main_text = tiles_editor.field( 'tile_main_text' );
-    //             var top_heading = tiles_editor.field( 'top_heading' );
-                
-    //             // Only validate user input values - different values indicate that
-    //             // the end user has not entered a value
-    //             if ( ! tile_main_text.isMultiValue() ) {
-    //                 if ( ! tile_main_text.val() ) {
-    //                     tile_main_text.error( 'Value is required' );
-    //                 }
-    //             }
-
-    //             if ( ! top_heading.isMultiValue() ) {
-    //                 if ( ! top_heading.val() ) {
-    //                     top_heading.error( 'Value is required' );
-    //                 }
-    //             }
-
-
-    //             // ... additional validation rules
-     
-    //             // If any error was reported, cancel the submission so it can be corrected
-    //             if ( this.inError() ) {
-    //                 return false;
-    //             }
-    //         }
-
-    //       } );
-
-    // }
-
-    // {
-    //       testimonials_editor = new $.fn.dataTable.Editor( {
-    //           ajax: "./php/get_testimonials_data.php",
-    //           keys: true,
-    //           table: "#testimonials_datatable-responsive",
-    //           idSrc:  'testimonial_id',
-    //           fields: [ {
-    //                   label: "TILE ID:",
-    //                   name: "testimonial_id",
-    //                   type: "text"
-    //               }, {
-    //                   label: "CUSTOMER NAME:",
-    //                   name: "customer_name",
-    //                   type: "text"
-    //               }, {
-    //                   label: "CUSTOMER MESSAGE:",
-    //                   name: "customer_message",
-    //                   type: "text"
-    //               }, {
-    //                   label: "CUSTOMER IMAGE:",
-    //                   name: "customer_image", 
-    //                   type: "upload"
-    //               }, {
-    //                   label: "ON HOME:",
-    //                   name: "testimonial_on_home", 
-    //                   type: "select",
-    //                   options: [
-    //                     { label: "no", value: "no" },
-    //                     { label: "yes", value: "yes" }
-    //                   ]
-
-    //               }
-    //           ]
-    //       } );
-
-
-    //       $('#testimonials_datatable-responsive').DataTable({
-    //           dom: "Bfrtip",
-    //           ajax: "./php/get_testimonials_data.php",
-    //           columns: [
-    //               { 
-    //                 data: "testimonial_id", 
-                    
-    //               },
-    //               { 
-    //                 data: "customer_name",
-    //                 className: 'editable'
-    //               },
-    //               { 
-    //                 data: "customer_message", 
-    //                 className: 'editable'
-    //               },  
-    //               { 
-    //                 data: "customer_image",
-    //                 className: 'editable'
-    //               },
-    //               { 
-    //                 data: "testimonial_on_home",
-    //                 className: 'editable'
-    //               }
-    //           ],
-    //           select: {
-    //             style:    'os',
-    //             selector: 'td:first-child'
-    //           },
-    //           order: [ 0, 'asc' ],
-    //           keys: {
-    //               columns: ':not(:first-child)',
-    //               keys: [ 9 ]
-    //           },
-    //           buttons: [
-                
-    //           ]
-    //       });
-
-
-    //       $('#testimonials_datatable-responsive').on( 'click', 'tbody td.editable', function (e) {
-    //           testimonials_editor.inline( this, {
-    //               submitOnBlur: true
-    //           } );
-    //       } );
-
-    //       $('#testimonials_datatable-responsive').on( 'key-focus', function ( e, datatable, cell ) {
-    //           testimonials_editor.inline( cell.index() , {
-                  
-    //               submitOnBlur: true
-    //           });
-    //       } );
-
-
-
-    //       testimonials_editor.on( 'preSubmit', function ( e, o, action ) {
-
-    //           if ( action !== 'remove' ) {
-
-    //               var customer_name = testimonials_editor.field( 'customer_name' );
-    //               var customer_message = testimonials_editor.field( 'customer_message' );
-    //               var customer_image = testimonials_editor.field( 'customer_image' ); 
-    //               // Only validate user input values - different values indicate that
-    //               // the end user has not entered a value
-    //               if ( ! customer_name.isMultiValue() ) {
-    //                   if ( ! customer_name.val() ) {
-    //                       customer_name.error( 'Value is required' );
-    //                   }
-    //               }
-
-    //               if ( ! customer_message.isMultiValue() ) {
-    //                   if ( ! customer_message.val() ) {
-    //                       customer_message.error( 'Value is required' );
-    //                   }
-    //               }
-
-    //               var ext = customer_image.val().split('.').pop();
-    //               if ( ! customer_image.isMultiValue() ) {
-    //                   if ( ext !== 'jpg' && ext !== 'png' ) {
-    //                       customer_image.error( 'Please upload an image (jpg or png only).' );
-    //                   }
-    //               }
-
-    //               // ... additional validation rules
-       
-    //               // If any error was reported, cancel the submission so it can be corrected
-    //               if ( this.inError() ) {
-    //                   return false;
-    //               }
-    //           }
-
-    //       } );
-    // }
+    initalized_slider=false;
+    initalized_category=false;
+    initalized_tiles=false;
+    initalized_testimonial=false;
+    initalized_card=false;
 
     
+    getLatest();
+    getOptions();
+    
+
+
+
   });
+
+  function getLatest(argument) {
+
+    $.post("./php/get_card_data.php",{getLatest:"yes"},function(data){
+
+      is_latest = data;
+
+    },"json");
+  }
+
+  function getOptions(argument) {
+
+    $.post("./php/get_category_data.php",{getOptions:"yes"},function(data){
+
+      is_category = data;
+
+    },"json");
+
+  }
+
+  function init_slider(){
+
+    sliderDatatable = $('#slider_datatable-responsive').DataTable({
+        dom: "Bfrtip",
+        ajax: "./php/get_slider_data.php",
+        columns: [
+            { 
+              title: "SLIDER ID",
+              data: "slider_id",
+              type: "readonly"
+              
+            },
+            { 
+              title: "MAIN TEXT",
+              data: "main_text",
+              type: "text"
+            },
+            { 
+              title: "TOP HEADING",
+              data: "sub_heading_top",
+              type: "text"
+            },
+            { 
+              title: "BOTTOM HEADING",
+              data: "sub_heading_bottom",
+              type: "text"
+            },
+            { 
+              title: "SLIDER IMAGE",
+              data: "background_img",
+              type: "file"
+            },
+            { 
+              title: "STATUS",
+              data: "status",
+              type:  "select",
+              options: [
+                  { label: "published", value: "published" },
+                  { label: "unpublished", value: "unpublished" } 
+                ]
+            }
+        ],
+        order: [ 0, 'asc' ],
+        altEditor: true,
+        responsive: true,
+        select: {
+          style: 'os',
+          blurable: true
+        },
+         buttons: [
+            {
+              extend: 'selected', // Bind to Selected row
+              text: 'Edit',
+              name: 'edit'        // do not change name
+            }
+          ]
+    });
+
+  }
+
+  function init_category(){
+
+    categoryDatatable = $('#category_datatable-responsive').DataTable({
+        dom: "Bfrtip",
+        ajax: "./php/get_category_data.php",
+        columns: [
+            { 
+              title: "CATEGORY ID",
+              data: "category_id", 
+              type: "readonly"
+            },
+            { 
+              title: "CATEGORY NAME",
+              data: "category_name",
+              type: "text"
+            },
+            { 
+              title: "CATEGORY DESCRIPTION",
+              data: "category_description", 
+              type: "txtarea"
+            },
+            { 
+              title: "STOCK",
+              data: "stock",
+              type: "readonly"
+            }
+        ],
+        order: [ 0, 'asc' ],
+        altEditor: true,
+        responsive: true,
+        select: {
+          style: 'os',
+          blurable: true
+        },
+        buttons: [
+          {
+            text: 'Add',
+            name: 'add'        // do not change name
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: 'Edit',
+            name: 'edit'        // do not change name
+          }
+          
+        ]
+    });
+
+  }
+
+
+  function init_card(){
+
+    cardDatatable =  $('#card_datatable-responsive').DataTable({
+        dom: "Bfrtip",
+        ajax: "./php/get_card_data.php",
+        columns: [  
+            {
+              title: "CARD ID",
+              data: "card_id",
+              type: "readonly"
+            },
+            { 
+              title: "CARD NAME",
+              data: "card_name",
+              type: "text"
+            },
+            { 
+              title: "CARD DESCRIPTION",
+              data: "card_description", 
+              type: "txtarea"
+            },
+            { 
+              title: "CARD PRICE",
+              data: "card_price",
+              type: "text"
+            },
+            { 
+              title: "CARD CATEGORY",
+              data: "card_category",
+              type: "select",
+              options: is_category
+            },
+            { 
+              title: "CARD IMAGE",
+              data: "card_image", 
+              type: "file"
+            },
+            { 
+              title: "CARD ON HOME",
+              data: "on_home", 
+              type: "select",
+              options: [
+                    { label: "no", value: "no" },
+                    { label: "yes", value: "yes" } 
+                  ]
+            },
+            { 
+              title: "LATEST",
+              data: "is_latest", 
+              type: "select",
+              options: is_latest
+            }
+        ],
+        order: [ 0, 'asc' ],
+        altEditor: true,
+        responsive: true,
+        select: {
+          style: 'os',
+          blurable: true
+        },
+         buttons: [
+          {
+            extend: 'selected', // Bind to Selected row
+            text: 'Edit',
+            name: 'edit'        // do not change name
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: 'Delete',
+            name: 'delete'        // do not change name
+          }
+        ]
+    });
+  }
+
+
+  function init_tiles(){
+
+        tilesDatatable = $('#tiles_datatable-responsive').DataTable({
+            dom: "Bfrtip",
+            ajax: "./php/get_tiles_data.php",
+            columns: [
+                { 
+                  title: "TILE ID",
+                  data: "tile_id", 
+                  type: "readonly"
+                  
+                },
+                { 
+                  title: "MAIN TEXT",
+                  data: "tile_main_text",
+                  type: "text"
+                },
+                { 
+                  title: "TOP HEADING",
+                  data: "top_heading", 
+                  type: "text"
+                },
+                
+                { 
+                  title: "TILE IMAGE",
+                  data: "tile_image",
+                  type: "file"
+                },
+
+                { 
+                  title: "ON LEFT",
+                  data: "tile_on_left",
+                  type: "select",
+                  options: [
+                    { label: "select for left", value: "no" },
+                    { label: "yes", value: "yes" }  
+                  ]
+                },
+            ],
+            order: [ 0, 'asc' ],
+            altEditor: true,
+            responsive: true,
+            select: {
+              style: 'os',
+              blurable: true
+            },
+             buttons: [
+                {
+                  extend: 'selected', // Bind to Selected row
+                  text: 'Edit',
+                  name: 'edit'        // do not change name
+                }
+              ]
+        });
+  }
+
+  
+  function init_testimonials(){
+
+        testimonialDatatable = $('#testimonials_datatable-responsive').DataTable({
+            dom: "Bfrtip",
+            ajax: "./php/get_testimonials_data.php",
+            columns: [
+                { 
+                  title: "TESTIMONIAL ID",
+                  data: "testimonial_id", 
+                  type: "readonly"
+                  
+                },
+                { 
+                  title: "CUSTOMER NAME",
+                  data: "customer_name",
+                  type: "text"
+                },
+                { 
+                  title: "CUSTOMER MESSAGE",
+                  data: "customer_message", 
+                  type: "txtarea"
+                },  
+                { 
+                  title: "CUSTOMES IMAGE",
+                  data: "customer_image",
+                  type: "file"
+                },
+                { 
+                  title: "ON HOME",
+                  data: "testimonial_on_home",
+                  type: "select",
+                  options: [
+                      { label: "yes", value: "yes" },
+                      { label: "no", value: "no" } 
+                    ]
+                }
+            ],
+            order: [ 0, 'asc' ],
+            altEditor: true,
+            responsive: true,
+            select: {
+              style: 'os',
+              blurable: true
+            },
+             buttons: [
+                {
+                  extend: 'selected', // Bind to Selected row
+                  text: 'Edit',
+                  name: 'edit'        // do not change name
+                },
+                {
+                  extend: 'selected', // Bind to Selected row
+                  text: 'Delete',
+                  name: 'delete'        // do not change name
+                }
+              ]
+        });
+  }
+
+    
+  
 
 </script>
 <!-- /Datatables -->

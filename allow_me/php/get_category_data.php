@@ -5,103 +5,63 @@
 
     if (isset($_POST['action'])) {
 
-
         # code...
         if ($_POST['action'] == "edit") {
             # code...
 
+            $category_id = $_POST['category_id'];
 
-            $data = $_POST['data'];
+            $category_name = $_POST['category_name'];
 
-            $id = array_keys($data);
-    
-            $id = array_shift($id);
-
-            $column = array_keys($data[$id]);
-
-            $column = array_shift($column);
-
-            $changedData = $data[$id][$column];
+            $category_description = $_POST['category_description'];
 
 
-            $sql = "UPDATE category SET $column='$changedData' WHERE category_id=$id";
+            $sql_select = "SELECT category_name FROM category WHERE category_id=$category_id";
+            $result_select = $conn->query($sql_select);
+            $data_select = $result_select->fetch_assoc();
+            $old_name = $data_select['category_name'];
+
+            $card_update = "UPDATE cards SET card_category = '$category_name' WHERE card_category = '$old_name'";
 
 
-            if ($conn->query($sql) === TRUE) {
-
-                $query = "SELECT * from category WHERE category_id=".$id;
-
-                $res = $conn -> query($query);
+            $sql_update = "UPDATE category SET category_name = '$category_name', category_description = '$category_description' WHERE category_id=$category_id";
 
 
-                $result = array();
+            if ($conn->query($card_update) === TRUE) {
 
+                if ($conn->query($sql_update) === TRUE) {
 
-                while ($row = $res -> fetch_assoc()) {
-                    # code...
-                    $result[] = $row;
-
+                    echo "success";
+                }
+                else {
+                echo 'Failed to updated.'.$conn->error;
                 }
 
-                print('{"data":'.json_encode($result).'}');
-
-
             } else {
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
+                echo 'Failed to updated.'.$conn->error;
             }
         }
-        else if ($_POST['action'] == "create")
+        else if ($_POST['action'] == "add")
         {
 
+            $category_name = $_POST['category_name'];
 
-            $data = $_POST['data'][0];
-
-            $category_name = $data['category_name'];
-
-            $category_description = $data['category_description'];
-
-
+            $category_description = $_POST['category_description'];
 
 
             $sql = "INSERT into category (category_name,category_description) VALUES ('$category_name','$category_description')";
 
-            if (empty($category_name) && empty($category_description)) {
-                # code...
-                echo '{"fieldErrors":[{"name":"category_name","status":"Value is required."}, 
-                  {"name":"category_description","status":"Value is required."} ],"data":[]}';
-            }
-            else if (empty($category_name))
-            {
-                echo '{"fieldErrors":[{"name":"category_name","status":"Value is required."} ],"data":[]}';
-            }
-            else if (empty($category_description)) {
-                
-                echo '{"fieldErrors":[{"name":"category_description","status":"Value is required."} ],"data":[]}';
 
-            }
-            else{
 
             if ($conn->query($sql) === TRUE) {
 
-                $query = "SELECT * from category WHERE category_name='$category_name'";
+                echo "success";
 
-                // var_dump($query);
-
-                $res = $conn -> query($query);
-
-                // var_dump($res);
-                $result = array();
-
-
-                while ($row = $res -> fetch_assoc()) {
-                    # code...
-                    $result[] = $row;
-
-                }
-
-                print('{"data":'.json_encode($result).'}');
+            }
+            else
+            {
+                echo "Failed to update.";
             }        
-        }
 
             
       }
@@ -109,7 +69,6 @@
 
     }else
     {
-
 
         $query = "SELECT * from category";
 

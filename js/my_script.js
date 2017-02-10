@@ -7,6 +7,16 @@ var googleUser = {};
 
 $( document ).ready(function() {
 
+  $('#wizard').smartWizard();
+
+  $('#wizard_verticle').smartWizard({
+    transitionEffect: 'slide'
+  });
+
+  $('.buttonNext').addClass('btn btn-success');
+  $('.buttonPrevious').addClass('btn btn-primary');
+  $('.buttonFinish').addClass('btn btn-default');
+
   $.post(session_url, {user:"check_session"}).done(function (session_data) {
 
     if (session_data != 'false') 
@@ -528,6 +538,11 @@ $('#card_box').on('click','.remove_cart_dialog',function(){
     if (data == 'success') 
     {
       $('#card_box').load('./php/show_cart.php');
+      if(window.location.pathname == '/cardpine/cart.php')
+      {
+        $('#main_page_content').load('./php/main_cart.php');
+      } 
+   
     }
     else
     {
@@ -550,7 +565,6 @@ $('.card_quantity').focusin(function(){
 
 
 $('.card_quantity').on('blur',function(){
-
   if ($(this).val() != card_quantity) 
   {
     card_quantity = $(this).val();
@@ -570,6 +584,42 @@ $('.card_quantity').on('blur',function(){
   }
 });
 
+function validateForm(form) {
+
+  var first_name = $('#'+form+'first_name');
+  var last_name = $('#'+form+'last_name');
+  var company_name = $('#'+form+'company_name');
+  var email = $('#'+form+'email');
+  var tel = $('#'+form+'tel');
+  var address = $('#'+form+'address');
+  var city = $('#'+form+'city');
+  var appartment = $('#'+form+'appartment');
+  var district = $('#'+form+'district');
+  var pincode = $('#'+form+'pincode');
+
+  console.log($('#billing_first_name').parsley().validate() == true);
+
+  var check_first_name = first_name.parsley().validate() == true;
+  var check_last_name = last_name.parsley().validate() == true;
+  var check_email = email.parsley().validate() == true;
+  var check_tel = tel.parsley().validate() == true;
+  var check_address = address.parsley().validate() == true;
+  var check_city = city.parsley().validate() == true;
+  var check_district = district.parsley().validate() == true;
+  var check_pincode = pincode.parsley().validate() == true;
+
+
+  if (check_first_name && check_last_name && check_email && check_tel && check_address && check_city && check_district && check_pincode) 
+  {
+    $('#full_'+form+'address').val(first_name.val()+' '+last_name.val()+','+company_name.val()+','+email.val()+','+tel.val()+','+address.val()+','+appartment.val()+','+city.val()+','+district.val()+','+pincode.val());
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+
+}
 
 
 

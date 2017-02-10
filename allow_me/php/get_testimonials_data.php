@@ -6,111 +6,123 @@
     {
 
 
-        if ($_POST['action'] == "upload") {
-            # code...
+        if ($_POST['action'] == "delete") {
+            
 
-            $target_dir = "../images/";
-        
+            $del_sql = "DELETE FROM testimonials WHERE testimonial_id = ".$_POST['testimonial_id'];
 
-            $column = $_POST['uploadField'];
-                    
-            // saving and retrieving image path from database
-            $target_path = basename($_FILES['upload']['name']); 
-            $target_file = $target_dir . basename($_FILES['upload']['name']);
 
-            $imageFileType = pathinfo($target_path,PATHINFO_EXTENSION);
-            $check = getimagesize($_FILES["upload"]["tmp_name"]);
-
-            if (file_exists($target_file)) {
-                echo'{"fieldErrors":[{"name":"image","status":"Sorry, image already exists."}],"data":[]}';
-            }
-            else if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
+            if ($conn->query($del_sql) === TRUE) {
                 
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Please upload an image (jpg or png only)."}],"data":[]}';
-            }
-            else if ($check[0] != 150 || $check[0] != 150 ) {
-                
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Please upload an image of dimentions 150*150."}],"data":[]}';
-            }
-            else if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) 
-            {
-                echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
+                echo "success";
+
             }
             else
             {
-            echo '{"fieldErrors":[{"name":"image","status":"Sorry, there was an error uploading your file."}],"data":[]}';
+                echo "Failed to upload.".$conn->error;
             }
+
+
         }
         else if ($_POST['action'] == "edit") {
             # code...
 
-            $data = $_POST['data'];
-
-            $id = array_keys($data);
-    
-            $id = array_shift($id);
-
-            $column = array_keys($data[$id]);
-
-            $column = array_shift($column);
-
-            $changedData = $data[$id][$column];
+            $testimonial_id = $_POST['testimonial_id'];
+            $customer_name = mysqli_real_escape_string($conn,$_POST['customer_name']);
+            $customer_message = mysqli_real_escape_string($conn,$_POST['customer_message']);
+            $customer_image = $_FILES['customer_image'];
+            $testimonial_on_home = $_POST['testimonial_on_home'];
 
             $count=0;
 
-            if ($column == 'testimonial_on_home') {
+
+            $chk = "SELECT testimonial_on_home,testimonial_id from testimonials";
+
+            $chkres = $conn->query($chk);
+
+            while ($row = $chkres -> fetch_assoc()) {
                 # code...
-
-                $chk = "SELECT testimonial_on_home from testimonials";
-
-                $chkres = $conn->query($chk);
-
-                while ($row = $chkres -> fetch_assoc()) {
-                    # code...
-                    if (strtolower($row['testimonial_on_home']) == 'yes')
-                    $count++;
-                }
-
+                if (($row['testimonial_on_home'] == 'yes') && ($row['testimonial_id'] != $testimonial_id))
+                $count++;
             }
 
 
-            if ($count == 5 && $changedData == 'yes') {
+            if ($count == 5 && $testimonial_on_home == 'yes') {
 
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"atmost 5 can be published."}],"data":[]}';
+                echo 'Atmost 5 can be published.';
 
             }
-            else if ($count == 3 && $changedData == 'no') {
+            else if ($count == 2 && $testimonial_on_home == 'no') {
 
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"atleat 3 should be published."}],"data":[]}';
+                echo 'Atleat 3 should be published.';
             }
             else
             {
+                if (empty($customer_image['name'])) {
+
+                    $sql = "UPDATE testimonials SET customer_name = '$customer_name', customer_message = '$customer_message', testimonial_on_home = '$testimonial_on_home' WHERE testimonial_id=".$testimonial_id;
 
 
-                $sql = "UPDATE testimonials SET ".$column."='".mysqli_real_escape_string($conn,$changedData)."' WHERE testimonial_id=".$id;
+                    if ($conn->query($sql) === TRUE) {
 
+                       echo "success";
 
-                if ($conn->query($sql) === TRUE) {
+                    } else {
 
-                    $query = "SELECT * from testimonials WHERE testimonial_id=".$id;
-
-                    $res = $conn -> query($query);
-
-
-                    $result = array();
-
-
-                    while ($row = $res -> fetch_assoc()) {
-                        # code...
-                        $result[] = $row;
-
+                        echo 'Failed to updated.'.$conn->error;
                     }
+                }
+                else {
 
-                    print('{"data":'.json_encode($result).'}');
+                    $target_dir = "../images/";
+                                
+                        // saving and retrieving image path from database
+                        $target_path = basename($customer_image['name']); 
+                        $target_file = $target_dir . basename($customer_image['name']);
 
-                } else {
+                        $imageFileType = pathinfo($target_path,PATHINFO_EXTENSION);
+                        $check = getimagesize($customer_image["tmp_name"]);
 
-                    echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
+                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
+                            
+                            echo 'Please upload an image (jpg or png only).';
+                        }
+                        else if ($check[0] != 150 || $check[1] != 150 ) {
+
+                            echo 'Please upload an image of dimentions 150*150.';
+                        }
+                        else if (file_exists($target_file)) {
+
+                            
+
+                            $sql = "UPDATE testimonials SET customer_name = '$customer_name', customer_image = '$target_path', customer_message = '$customer_message', testimonial_on_home = '$testimonial_on_home' WHERE testimonial_id=".$testimonial_id;
+
+
+                            if ($conn->query($sql) === TRUE) {
+
+                                echo "success";
+
+                            } else {
+                                echo 'failed to updated.'.$conn->error;
+                            }
+
+                        }
+                        else if (move_uploaded_file($customer_image["tmp_name"], $target_file)) 
+                        {
+                            $sql = "UPDATE testimonials SET customer_name = '$customer_name', customer_image = '$target_path', customer_message = '$customer_message', testimonial_on_home = '$testimonial_on_home' WHERE testimonial_id=".$testimonial_id;
+
+                            if ($conn->query($sql) === TRUE) {
+
+                                echo "success";
+
+                            } else {
+                                echo 'failed to updated.'.$conn->error;
+                            }
+                        }
+                        else
+                        {
+                        echo 'Sorry, there was an error uploading your file.';
+                        }
                 }
 
             }

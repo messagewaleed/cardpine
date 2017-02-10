@@ -2524,7 +2524,7 @@ img {
   margin-top: 10px;
   width: 100%;
 }
-#checkout .checkout-area .checkout-left .panel-group .aa-checkout-login .aa-lost-password a {
+/*#checkout .checkout-area .checkout-left .panel-group .aa-checkout-login .aa-lost-password a {
   color: #555;
 }
 #checkout .checkout-area .checkout-left .panel-group .aa-checkout-billaddress .aa-checkout-single-bill {
@@ -2552,7 +2552,7 @@ img {
   height: 40px;
   padding: 10px;
   width: 100%;
-}
+}*/
 #checkout .checkout-area .checkout-right {
   display: inline;
   float: left;

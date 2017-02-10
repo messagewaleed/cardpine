@@ -65,6 +65,7 @@
 
   <?php include './php/header.php';  ?>
   
+  <!-- main content -->
   <div id="main_page_content" >
     <!-- Start slider -->
     <section id="aa-slider">
@@ -106,10 +107,10 @@
             </ul>
             <!-- slider navigation btn -->
 
-            <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
+<!--             <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
               <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
               <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
-            </fieldset>
+            </fieldset> -->
         </div>
       </div>
     </section>
@@ -612,6 +613,7 @@
     </section>
     <!-- / Testimonial -->
   </div>
+  <!-- /main content -->
 
   <?php include './php/footer.php';  ?>  
 

@@ -6,130 +6,110 @@
     {
 
 
-        if ($_POST['action'] == "upload") {
+        if ($_POST['action'] == "edit") {
             # code...
 
-            $target_dir = "../images/";
-        
+            $tile_id = $_POST['tile_id'];
+            $tile_main_text = $_POST['tile_main_text'];
+            $top_heading = $_POST['top_heading'];
+            $tile_image = $_FILES['tile_image'];
+            $tile_on_left = $_POST['tile_on_left'];
 
-            $column = $_POST['uploadField'];
-                    
-            // saving and retrieving image path from database
-            $target_path = basename($_FILES['upload']['name']); 
-            $target_file = $target_dir . basename($_FILES['upload']['name']);
+            $check = false;
 
-            $imageFileType = pathinfo($target_path,PATHINFO_EXTENSION);
-            $check = getimagesize($_FILES["upload"]["tmp_name"]);
+            $sql;
 
-            if (file_exists($target_file)) {
-                echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
-            }
-            else if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
-                
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Please upload an image (jpg or png only)."}],"data":[]}';
-            }
-            else if ($check[0] != 500 || $check[0] != 500 ) {
-                
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Please upload an image of dimentions 500*500."}],"data":[]}';
-            }
-            else if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) 
-            {
-                echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
-            }
-            else
-            {
-            echo '{"fieldErrors":[{"name":"image","status":"Sorry, there was an error uploading your file."}],"data":[]}';
-            }
-        }
-        else if ($_POST['action'] == "edit") {
-            # code...
-
-            $data = $_POST['data'];
-
-            $id = array_keys($data);
-    
-            $id = array_shift($id);
-
-            $column = array_keys($data[$id]);
-
-            $column = array_shift($column);
-
-            $changedData = $data[$id][$column];
-
-
-            if ($column == 'tile_on_left') {
-
-
-                if ($changedData == 'yes') {
-
+            if ($tile_on_left == 'yes') {
 
             
                     $replace_sql = "UPDATE tiles SET tile_on_left = 'no' WHERE tile_on_left = 'yes' ";
 
-                    if ($conn->query($replace_sql) === TRUE) {
+                    $conn->query($replace_sql);
 
-                        $sql = "UPDATE tiles SET tile_on_left = 'yes' WHERE tile_id=".$id;
+                        
+            }else {
 
-                        if ($conn->query($sql) === TRUE) {
+                $select = "SELECT tile_id FROM tiles WHERE tile_on_left = 'yes'";
 
-                            $query = "SELECT * from tiles";
+                $res = $conn->query($select);
 
-                            $res = $conn -> query($query);
+                $chk = $res -> fetch_assoc();
 
-
-                            $result = array();
-
-
-                            while ($row = $res -> fetch_assoc()) {
-                                # code...
-                                $result[] = $row;
-
-                            }
-
-                            print('{"data":'.json_encode($result).'}');
-                        } else {
-                            echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
-                        }
-
-                    } else {
-                        echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
-                    }
+                if ($chk['tile_id'] == $tile_id) {
+                    $tile_on_left = 'yes';
                 }
-                else{
-
-                     echo '{"fieldErrors":[{"name":"tile_on_left","status":"Please select correct option"}],"data":[]}';
-
-                }
-
-            }else{
-
-                $sql = "UPDATE tiles SET ".$column."='".mysqli_real_escape_string($conn,$changedData)."' WHERE tile_id=".$id;
+                
+            }
 
 
-                if ($conn->query($sql) === TRUE) {
 
-                    $query = "SELECT * from tiles WHERE tile_id=".$id;
+            if (empty($tile_image['name'])) {
 
-                    $res = $conn -> query($query);
+               $sql = "UPDATE tiles SET tile_main_text = '$tile_main_text', top_heading = '$top_heading',  tile_on_left = '$tile_on_left' WHERE tile_id=".$tile_id;
 
+               if ($conn->query($sql) === TRUE) {
 
-                    $result = array();
-
-
-                    while ($row = $res -> fetch_assoc()) {
-                        # code...
-                        $result[] = $row;
-
-                    }
-
-                    print('{"data":'.json_encode($result).'}');
-
+                    echo "success";
 
                 } else {
-                    echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
+
+                    echo 'Failed to updated.';
+
                 }
 
             }
+            else {
+
+                $target_dir = "../images/";
+                            
+                    // saving and retrieving image path from database
+                    $target_path = basename($tile_image['name']); 
+                    $target_file = $target_dir . basename($tile_image['name']);
+
+                    $imageFileType = pathinfo($target_path,PATHINFO_EXTENSION);
+                    $check = getimagesize($tile_image["tmp_name"]);
+
+                    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
+                        
+                        echo 'Please upload an image (jpg or png only).';
+                    }
+                    else if ($check[0] != 500 || $check[1] != 500 ) {
+                        
+                        echo 'Please upload an image of dimentions 500*500.';
+                    }
+                    else if (file_exists($target_file)) {
+
+
+                        $sql = "UPDATE tiles SET tile_main_text = '$tile_main_text', top_heading = '$top_heading', tile_image = '$target_path', tile_on_left = '$tile_on_left' WHERE tile_id=".$tile_id;
+
+
+                        if ($conn->query($sql) === TRUE) {
+
+                            echo "success";
+
+                        } else {
+                            echo 'failed to updated.'.$conn->error;
+                        }
+
+                    }
+                    else if (move_uploaded_file($tile_image["tmp_name"], $target_file)) 
+                    {
+                        $sql = "UPDATE tiles SET tile_main_text = '$tile_main_text', top_heading = '$top_heading', tile_image = '$target_path', tile_on_left = '$tile_on_left' WHERE tile_id=".$tile_id;
+
+                        if ($conn->query($sql) === TRUE) {
+
+                            echo "success";
+
+                        } else {
+                            echo 'failed to updated.'.$conn->error;
+                        }
+                    }
+                    else
+                    {
+                    echo 'Sorry, there was an error uploading your file.';
+                    }
+            }
+
         }
 
     }

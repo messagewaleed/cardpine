@@ -69,7 +69,6 @@
 
                       if (isset($_SESSION['logged_in'])) {
 
-                        echo("<script>alert('user = ".$_SESSION['user']."');</script>");
                     ?>
 
                     <li><a href="" id="logoff_btn" >Logout</a></li>

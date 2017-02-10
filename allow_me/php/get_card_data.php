@@ -11,30 +11,48 @@
         if ($_POST['action'] == "edit") {
             # code...
 
-            $data = $_POST['data'];
+            $card_id = $_POST['card_id'];
+            $card_name = $_POST['card_name'];
+            $card_description = $_POST['card_description'];
+            $card_price = $_POST['card_price'];
+            $card_category = $_POST['card_category'];
+            $card_image = $_FILES['card_image'];
+            $on_home = $_POST['on_home'];
+            $is_latest = $_POST['is_latest'];   
+           
 
-            $id = array_keys($data);
-    
-            $id = array_shift($id);
+            {
+                
+                $old_category;
 
-            $column = array_keys($data[$id]);
+                $getCategory = $conn->query("SELECT card_category from cards WHERE card_id=$card_id");
 
-            $column = array_shift($column);
+                while ($row = $getCategory -> fetch_assoc()) {
 
-            $changedData = $data[$id][$column];
+                    $old_category = $row['card_category'];
 
-            
+                }
+
+                if ($old_category == $card_category) {
+                    
+                    $sql = "UPDATE "
+
+                }
+
+            }
+
+            if (empty($card_image['name'])) {
+
+            }
 
             $sql = "UPDATE cards SET $column='".mysqli_real_escape_string($conn,$changedData)."' WHERE card_id=$id";
 
-            if($column == 'card_category')
             {
                 $old_category;
 
-                $getCategory = $conn->query("SELECT card_category from cards WHERE card_id=$id");
+                $getCategory = $conn->query("SELECT card_category from cards WHERE card_id=$card_id");
 
                 while ($row = $getCategory -> fetch_assoc()) {
-                     # code...
 
                     $old_category = $row['card_category'];
 
@@ -67,7 +85,8 @@
                     echo '{"fieldErrors":[{"name":"'.$column.'","status":"failed to updated."}],"data":[]}';
                 }
             }
-            else if($column == 'on_home' && $changedData == 'yes')
+
+            ($column == 'on_home' && $changedData == 'yes')
             {
                 $category;
                 $count=0;
@@ -187,98 +206,20 @@
                 }
             }         
         }
-        elseif ($_POST['action'] == "create")
+        elseif ($_POST['action'] == "delete") 
         {
 
-            $data = $_POST['data'][0];
-
-            $card_name = $data['card_name'];
-
-            $card_description = $data['card_description'];
-
-            $card_price = $data['card_price'];
-
-            $card_category = $data['card_category'];
-            
-            $card_image = $data['card_image'];
-
-            $on_home = $data['on_home'];
-            
-            
-            
-            $sql = "INSERT into cards (card_name,card_description,card_price,card_category,card_image,on_home) VALUES ('$card_name','$card_description',$card_price,'$card_category','$card_image','$on_home')";
-
-            if (empty($card_name) || empty($card_description) || empty($card_price) || empty($card_image)) 
-            {
-                # code...
-
-                $errors = '{"fieldErrors":[';
-            
-                if (empty($card_name))
-                    $errors = $errors . '{"name":"card_name","status":"Value is required."},'; 
-                if (empty($card_description)) 
-                    $errors = $errors . '{"name":"card_description","status":"Value is required."},';
-                if (empty($card_price))
-                    $errors = $errors . '{"name":"card_price","status":"Value is required."},';
-                if (empty($card_image))                     
-                    $errors = $errors . '{"name":"card_image","status":"Value is required."},';
-                
-                echo rtrim($errors, "," ).'],"data":[]}';
-            }
-            else
-            {
-
-                if ($conn->query($sql) === TRUE) {
-
-
-                    if (stock($card_category)) {
-
-                        $query = "SELECT * from cards WHERE card_name='$card_name'";
-
-                    
-
-                        $res = $conn -> query($query);
-
-                        $result = array();
-
-
-                        while ($row = $res -> fetch_assoc()) {
-                            # code...
-                            $result[] = $row;
-
-                        }
-
-                        print('{"data":'.json_encode($result).'}');
-                    }
-                    else{
-
-                        echo "abcd";
-
-                    }
-                    
-                }
-                else
-                {
-                    echo "Error: " . $sql ." -------  ". $conn->error;
-                }
-            }
-        }
-        elseif ($_POST['action'] == "remove") 
-        {
-            # code...
-
-            $data = $_POST['data'];
-
-            $id = array_keys($data)[0];
-
-
-            $sql = "DELETE from cards WHERE card_id='$id'";
+            $sql = "DELETE from cards WHERE card_id=".$_POST['card_id'];
 
             if ($conn->query($sql) === TRUE) {
 
-                print('{"data":[]}');
+                echo "success";
 
             }
+            else {
+                echo "Failed to upload.".$conn->error;
+            }
+
         }
         elseif ($_POST['action'] == "upload") 
         {
@@ -298,21 +239,21 @@
             $imageFileType = pathinfo($target_path,PATHINFO_EXTENSION);
             $check = getimagesize($_FILES["upload"]["tmp_name"]);
 
-            if (file_exists($target_file)) {
-                echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
-
-            }
-            else if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
+            
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
                 
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Please upload an image (jpg or png only)."}],"data":[]}';
+                echo 'Please upload an image (jpg or png only).';
             }
             else if ($check[0] != 900 || $check[0] != 1024 ) {
                 
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Please upload an image of dimentions 900*1024."}],"data":[]}';
+                echo 'Please upload an image of dimentions 900*1024.';
+            }
+            else if (file_exists($target_file)) {
+                
+
             }
             else if (move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) 
             {
-                echo '{"data":[],"files":{"files":{"'.$target_path.'":{"id":"'.$target_path.'","filename":"'.$target_path.'","filesize":"'.$_FILES['upload']['size'].'","web_path":"images\/'.$target_path.'","system_path":"'.$target_file.'"}}},"upload":{"id":"'.$target_path.'"}}';
 
                 smart_resize_image($target_file , null, 250 , 300 , false , $thumb_file , false , false ,100 );
 
@@ -321,12 +262,11 @@
             }
             else
             {
-                echo '{"fieldErrors":[{"name":"'.$column.'","status":"Sorry, there was an error uploading your file."}],"data":[]}';
+                echo 'Sorry, there was an error uploading your file.';
             }
         }           
     }
     else{
-
 
             $query = "SELECT * from cards";
 
