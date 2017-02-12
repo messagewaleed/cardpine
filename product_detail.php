@@ -102,23 +102,16 @@
                       </div>
                       <p><?php echo ($data['card_description']);?></p>
 
-                      <h4>COLOR</h4>
-                      <div class="aa-prod-view-size">
-                        <a href="#">BLUE</a>
-                        <a href="#">BROWN</a>
-                        <a href="#">RED</a>
-                        <a href="#">YELLOW</a>
-                      </div>
 
                       <div class="aa-prod-quantity">
                         <form action="">
-                          <select id="" name="">
-                            <option selected="1" value="0">1</option>
-                            <option value="1">2</option>
-                            <option value="2">3</option>
-                            <option value="3">4</option>
-                            <option value="4">5</option>
-                            <option value="5">6</option>
+                          <select id="choose_quantity" name="">
+                            <option selected value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
                           </select>
                         </form>
                         <p class="aa-prod-category">
@@ -126,8 +119,29 @@
                         </p>
                       </div>
                       <div class="aa-prod-view-bottom">
-                        <a class="aa-add-to-cart-btn aa-add-card-btn" id="<?=$card_id?>">Add To Cart</a>
-                        <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
+                        <a id="add_toCart" class="aa-add-to-cart-btn" data="<?=$card_id;?>">Add To Cart</a>
+                        <?php 
+
+                          $count_rows = 0;
+
+                          if (isset($_SESSION['user'])) {
+
+                            $res = $conn->query("SELECT * FROM user_wishlist WHERE card_id = $card_id and user_email ='".$_SESSION['user']."'");
+
+                            $count_rows = $res->num_rows;
+
+                          }
+
+                        ?>
+                        <a id="add_toWishlist" data="<?=$card_id;?>" class="aa-add-to-cart-btn">
+                        <?php 
+                          if ($count_rows != 0) {
+                            echo "Remove From Wishlist";
+                          }
+                          else {
+                            echo "Wishlist";
+                          }
+                        ?></a>
                         <a class="aa-add-to-cart-btn" href="#">Compare</a>
                       </div>
                     </div>
@@ -136,7 +150,6 @@
               </div>
               <div class="aa-product-details-bottom">
                 <ul class="nav nav-tabs" id="myTab2">
-                  <!-- <li><a href="#description" data-toggle="tab">Description</a></li> -->
                   <li><a href="#review" data-toggle="tab">Reviews</a></li>                
                 </ul>
 

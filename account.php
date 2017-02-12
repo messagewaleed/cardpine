@@ -5,6 +5,10 @@
   include './php/sessions.php';
   include './allow_me/php/connection.php';
 
+  if (!isset($_SESSION['user'])) {
+    echo "<script>alert('Please Login first'); window.location.href = 'index.php'</script>";
+  }
+
 ?>
 
 <html lang="en">
@@ -91,7 +95,7 @@
                           <div id="incomplete_orders" class="panel-body">
                             <?php
 
-                                $res = $conn->query("SELECT * FROM user_orders WHERE status = 1");
+                                $res = $conn->query("SELECT * FROM user_orders WHERE status = 0 AND user_email='".$_SESSION['user']."'");
 
                                 if ($res->num_rows != 0){
                                 
@@ -208,6 +212,10 @@
                             <?php
 
                                  }
+                                }
+                                else
+                                {
+                                  echo "<div>NO ORDERS FOUND</div>";
                                 }                            
 
                             ?>
@@ -227,7 +235,7 @@
                           <div id="completed_orders" class="panel-body">
                             <?php
 
-                                $res = $conn->query("SELECT * FROM user_orders WHERE status = 1");
+                                $res = $conn->query("SELECT * FROM user_orders WHERE status = 1 AND user_email='".$_SESSION['user']."'");
 
                                 if ($res->num_rows != 0){
                                 
@@ -344,7 +352,11 @@
                             <?php
 
                                  }
-                                }                            
+                                }   
+                                else
+                                {
+                                  echo "<div>NO ORDERS FOUND</div>";
+                                }                         
 
                             ?>
                           </div>
@@ -363,7 +375,7 @@
                           <div id="incomplete_orders" class="panel-body">
                             <?php
 
-                                $res = $conn->query("SELECT * FROM user_orders");
+                                $res = $conn->query("SELECT * FROM user_orders WHERE user_email='".$_SESSION['user']."'");
 
                                 if ($res->num_rows != 0){
                                 
@@ -491,7 +503,11 @@
                             <?php
 
                                  }
-                                }                            
+                                }   
+                                else
+                                {
+                                  echo "<div>NO ORDERS FOUND</div>";
+                                }                         
 
                             ?>
                           </div>

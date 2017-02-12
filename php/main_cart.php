@@ -36,6 +36,9 @@
                             $total=0;
                             $sub_total=0;
 
+                            if ($result->num_rows == 0) {
+                              echo "<script>alert('cart is empty.'); window.location.href = 'index.php';</script>";
+                            }
 
                             while ($row = $result->fetch_assoc()) {
 

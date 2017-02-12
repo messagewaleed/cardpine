@@ -129,15 +129,25 @@
               </form>
               <button class="aa-browse-btn" style="width: 100%;" id="submit_login">Login</button>
               <br/>
-              <p class="aa-lost-password"><a style="cursor: pointer;" id="switchToReset">Lost your password?</a></p>
+              <p class="aa-lost-password"><a id="switchToReset">Lost your password?</a></p>
+              <div id="other_signin_text" class="aa-register-now">
+                OR SIGN IN WITH
+              </div>
               <div>
-                <div style="display: inline-block;">
-                <fb:login-button data-size="xlarge" scope="public_profile,email" onlogin="checkLoginState()">facebook</fb:login-button>
-                </div>
-                <div id="gmail_btn" style="display: inline-block;" class="g-signin2">Gmail</div>
+                  <!-- FACEBOOK BTN -->
+                  <div style="display: inline-block;">
+                    <fb:login-button id="f_login" data-size="xlarge" scope="public_profile,email" onlogin="checkLoginState()">
+                      facebook
+                    </fb:login-button>
+                  </div>
+                  <!-- GMAIL BTN -->
+                  <div id="gmail_btn">
+                    <span class="icon"></span>
+                    <span class="buttonText">Gmail</span>
+                  </div>
               </div>
               <div class="aa-register-now">
-                Don't have an account?<a style="cursor: pointer;" id="switchToRegister">Register now!</a>
+                Don't have an account?<a id="switchToRegister">Register now!</a>
               </div>
               <div hidden id="error_message_login" style="color: red;" class="aa-register-now">
               </div>
@@ -156,7 +166,7 @@
               <button class="aa-browse-btn" style="width: 100%;" id="submit_register">Register</button>
               <br/>
               <div class="aa-register-now">
-                do have an account?<a style="cursor: pointer;" id="switchToLogin">Login!</a>
+                do have an account?<a id="switchToLogin">Login!</a>
               </div>
               <div hidden id="error_message_register" style="color: red;" class="aa-register-now">
               </div>
@@ -179,7 +189,7 @@
               <button class="aa-browse-btn" disabled style="width: 100%;" id="submit_reset">Reset</button>
               <br/>
               <div class="aa-register-now">
-                Send Confirmation Code to your email!<a style="cursor: pointer;" id="generateCode">SEND!</a>
+                Send Confirmation Code to your email!<a id="generateCode">SEND!</a>
               </div>
               <div hidden id="error_message_reset" style="color: red;" class="aa-register-now">
               </div>

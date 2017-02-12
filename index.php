@@ -402,22 +402,15 @@
                                     <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                                   </div>
                                   <p id="dialog_card_description">Add on card paper will be generic color (Off-white) with deisgn to match chosen card.</p>
-                                  <h4>COLOR</h4>
-                                  <div class="aa-prod-view-size">
-                                    <a href="#">BLUE</a>
-                                    <a href="#">BROWN</a>
-                                    <a href="#">RED</a>
-                                    <a href="#">YELLOW</a>
-                                  </div>
                                   <div class="aa-prod-quantity">
                                     <form action="">
-                                      <select name="" id="">
-                                        <option value="0" selected="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
-                                        <option value="4">5</option>
-                                        <option value="5">6</option>
+                                      <select name="" id="choose_quantity">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
                                       </select>
                                     </form>
                                     <p class="aa-prod-category">
@@ -425,8 +418,8 @@
                                     </p>
                                   </div>
                                   <div class="aa-prod-view-bottom">
-                                    <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                    <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                    <a id="add_toCart" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <a id="card_link" class="aa-add-to-cart-btn">View Details</a>
                                   </div>
                                 </div>
                               </div>

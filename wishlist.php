@@ -5,6 +5,10 @@
   include './php/sessions.php';
   include './allow_me/php/connection.php';
 
+  if (!isset($_SESSION['user'])) {
+    echo "<script>alert('Please Login first'); window.location.href = 'index.php'</script>";
+  }
+
 ?>
 
 <html lang="en">
@@ -115,7 +119,7 @@
                           <td><a class="aa-cart-title" href="#"><?= $card_data['card_name']?></a></td>
                           <td>RS <?= $card_data['card_price']?></td>
                           <td>In Stock</td>
-                          <td><a class="aa-add-to-cart-btn aa-add-card-btn" id="<?php echo ($row['card_id']);?>" >Add</a></td>
+                          <td><a class="aa-add-to-cart-btn aa-add-card-btn" id="<?php echo ($row['card_id']);?>" >Add To Cart</a></td>
                         </tr>
 
                         <?php

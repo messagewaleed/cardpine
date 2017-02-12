@@ -4,50 +4,112 @@ var session_url = "./php/sessions.php";
 var wishlist_url = "./php/wishlist.php";
 var cart_url = "./php/cart.php";
 var googleUser = {};
+billing_address_height=0;
+shipping_address_height=0;
 
 $( document ).ready(function() {
 
-  $('#wizard').smartWizard();
+  var loc = window.location.pathname;
+  if (loc.includes("checkout")) {
 
-  $('#wizard_verticle').smartWizard({
-    transitionEffect: 'slide'
-  });
+    $('#wizard').smartWizard();
 
-  $('.buttonNext').addClass('btn btn-success');
-  $('.buttonPrevious').addClass('btn btn-primary');
-  $('.buttonFinish').addClass('btn btn-default');
+    $('.buttonNext').addClass('btn btn-success');
+    $('.buttonPrevious').addClass('btn btn-primary');
+    $('.buttonFinish').addClass('btn btn-default');
 
-  $.post(session_url, {user:"check_session"}).done(function (session_data) {
-
-    if (session_data != 'false') 
-    {
-      
-      $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
-
-        var id;
-        for(var i=0;i<data.length;i++)
-        {
-          id = data[i].card_id;
-
-          $('.wishlist_btn').each(function(){
-
-            var span =$(this).children();
-            if ($(this).attr('data') == id)
-            {
-              span.removeClass('fa-heart-o');
-              span.addClass('fa-heart');
-            }
-
-          });
+    $('#card_box').hide();
 
 
-          
-        }
+    $('#billing_addresses').children('.set_address').each(function(){
 
-      },'json');
-      
-    }
-  });
+      console.log("height billing: "+$(this).height());
+
+      if ($(this).height() > billing_address_height)
+      {
+        billing_address_height = $(this).height();
+      }
+
+    });
+
+    $('#shipping_addresses').children('.set_address').each(function(){
+
+      console.log("height: "+$(this).height());
+
+      if ($(this).height() > shipping_address_height)
+      {
+        shipping_address_height = $(this).height();
+      }
+
+    });
+
+  }
+
+  if (loc.includes("index") || loc == "/cardpine/") { 
+
+    $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+      if (session_data != 'false') 
+      {
+        
+        $.post(wishlist_url, {action:'getAll',user_email:session_data},function (data) {
+
+          var id;
+          for(var i=0;i<data.length;i++)
+          {
+            id = data[i].card_id;
+
+            $('.wishlist_btn').each(function(){
+
+              var span =$(this).children();
+              if ($(this).attr('data') == id)
+              {
+                span.removeClass('fa-heart-o');
+                span.addClass('fa-heart');
+              }
+
+            });
+          }
+
+        },'json');
+        
+      }
+    });
+
+    $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+      if (session_data != 'false') 
+      {
+        
+        $.post(cart_url, {action:'getAll',user_email:session_data},function (data) {
+
+          var id;
+          for(var i=0;i<data.length;i++)
+          {
+            id = data[i].card_id;
+
+            $('.aa-add-card-btn').each(function(){
+
+              if ($(this).attr('id') == id)
+              {
+                $(this).text('Remove From Cart');
+              }
+
+            });
+          }
+        },'json');
+        
+      }
+    });
+
+    
+
+  }
+
+  if (loc.includes('cart')) 
+  {
+    $('#card_box').hide();
+  }
 
 
   var auth2;
@@ -70,9 +132,6 @@ $( document ).ready(function() {
           var profile = googleUser.getBasicProfile();
           var user_name = profile.getName();
           var user_email = profile.getEmail();
-
-          alert(user_email +"  "+user_name);
-
           
 
           $.post(url, {from:"gmail",fullname:user_name,email:user_email}).done(function (data) {
@@ -173,7 +232,6 @@ $('#submit_login').click(function(){
 
   if ($('#login_form').parsley().validate())
   {
-    alert('inside login');
 
     $("#error_message_login").hide();
 
@@ -209,8 +267,6 @@ $('#submit_register').click(function(){
 
   if ($('#register_form').parsley().validate())
   {
-
-    alert('inside register');
 
     $("#error_message_register").hide();
 
@@ -280,7 +336,6 @@ $('#generateCode').click(function(){
 
   if ($('#reset_email').parsley().validate() == true)
   {
-    alert('inside reset');
 
     $("#error_message_reset").hide();
     $('#code_sent_message').hide();
@@ -326,8 +381,10 @@ $('.quick_view').click(function(){
   $('#dialog_card_description').text(data[0].card_description);
   $('#dialog_card_price').text('Rs. '+data[0].card_price);
   $('#dialog_card_category').text(data[0].card_category);
+  $('#add_toCart').attr('data',id);
   $('#dialog_display_image').attr('src','./allow_me/images/cards/tiles/'+data[0].card_image);
   $('#dialog_zoom_image').attr('data-lens-image','./allow_me/images/cards/main/'+data[0].card_image);
+  $('#card_link').attr('href','product_detail.php?cid='+id);
 
  },'json');
 });
@@ -457,29 +514,52 @@ $('.wishlist_btn').click(function(){
 $('.aa-add-card-btn').click(function(){
 
   var id = $(this).attr('id');
+  var button = $(this);
 
   $.post(session_url, {user:"check_session"}).done(function (session_data) {
 
     if (session_data != 'false') 
     {
-      $.post(cart_url, {action:'add',card_id:id,user_email:session_data}).done(function (data) {
 
-        if (data == 'success') 
-        {
-          $('#card_box').load('./php/show_cart.php');
-        }
-        else
-        {
-          alert(data);
-        }
+      if (button.text() == "Add To Cart") 
+      {
+        $.post(cart_url, {action:'add',card_id:id,user_email:session_data}).done(function (data) {
 
-      });
+          if (data == 'success') 
+          {
+            $('#card_box').load('./php/show_cart.php');
+            button.text('Remove From Cart');
+          }
+          else
+          {
+            alert(data);
+          }
+
+        });
+      }
+      else if (button.text() == "Remove From Cart")
+      {
+          $.post(cart_url, {action:'remove',card_id:id,user_email:session_data}).done(function (data) {
+
+            if (data == 'success') 
+            {
+              $('#card_box').load('./php/show_cart.php'); 
+              button.text('Add To Cart');  
+            }
+            else
+            {
+              alert(data);
+            }
+
+          }); 
+      }
+
+      
     }
     else
     {
       $('#login-modal').modal('show');
     }
-
   });
 });
 
@@ -516,7 +596,6 @@ $('#main_page_content').on('click','.remove_cart',function(){
     if (data == 'success') 
     {
       $('#main_page_content').load('./php/main_cart.php');
-      $('#card_box').load('./php/show_cart.php');
     }
     else
     {
@@ -537,12 +616,7 @@ $('#card_box').on('click','.remove_cart_dialog',function(){
 
     if (data == 'success') 
     {
-      $('#card_box').load('./php/show_cart.php');
-      if(window.location.pathname == '/cardpine/cart.php')
-      {
-        $('#main_page_content').load('./php/main_cart.php');
-      } 
-   
+      $('#card_box').load('./php/show_cart.php');   
     }
     else
     {
@@ -552,15 +626,11 @@ $('#card_box').on('click','.remove_cart_dialog',function(){
   });  
 });
 
-// $('.remove_cart_dialog').click(function(){
-// });
-
 var card_quantity = 0;
 
 $('.card_quantity').focusin(function(){
 
   card_quantity = $(this).val();
-
 });
 
 
@@ -597,7 +667,7 @@ function validateForm(form) {
   var district = $('#'+form+'district');
   var pincode = $('#'+form+'pincode');
 
-  console.log($('#billing_first_name').parsley().validate() == true);
+
 
   var check_first_name = first_name.parsley().validate() == true;
   var check_last_name = last_name.parsley().validate() == true;
@@ -618,8 +688,232 @@ function validateForm(form) {
   {
     return false;
   }
-
 }
+
+
+function populateShippingForm() {
+
+  $('#shipping_first_name').val($('#billing_first_name').val());
+  $('#shipping_last_name').val($('#billing_last_name').val());
+  $('#shipping_company_name').val($('#billing_company_name').val());
+  $('#shipping_email').val($('#billing_email').val());
+  $('#shipping_tel').val($('#billing_tel').val());
+  $('#shipping_address').val($('#billing_address').val());
+  $('#shipping_city').val($('#billing_city').val());
+  $('#shipping_appartment').val($('#billing_appartment').val());
+  $('#shipping_district').val($('#billing_district').val());
+  $('#shipping_pincode').val($('#billing_pincode').val());
+}
+
+
+$('#billing_addresses').on('click','.set_address',function(){
+
+  billing_address = $(this).children('.copy_billing_address').text().split(',');
+  names = billing_address[0].split(" ");
+
+  $('#billing_first_name').val(names[0]);
+  $('#billing_last_name').val(names[1]);
+  $('#billing_company_name').val(billing_address[1]);
+  $('#billing_email').val(billing_address[2]);
+  $('#billing_tel').val(billing_address[3]);
+  $('#billing_address').val(billing_address[4]);
+  $('#billing_appartment').val(billing_address[5]);
+  $('#billing_city').val(billing_address[6]);
+  $('#billing_district').val(billing_address[7]);
+  $('#billing_pincode').val(billing_address[8]);
+  $('#billing_addresses').hide();
+  $('#billing_form').slideDown();
+});
+
+$('#billing_addresses').on('click','.add_address',function(){
+
+  $('#billing_addresses').hide();
+  $('#billing_form').slideDown();
+});
+
+
+$('#shipping_addresses').on('click','.set_address',function(){
+
+  shipping_address = $(this).children('.copy_shipping_address').text().split(',');
+  names = shipping_address[0].split(" ");
+
+  $('#shipping_first_name').val(names[0]);
+  $('#shipping_last_name').val(names[1]);
+  $('#shipping_company_name').val(shipping_address[1]);
+  $('#shipping_email').val(shipping_address[2]);
+  $('#shipping_tel').val(shipping_address[3]);
+  $('#shipping_address').val(shipping_address[4]);
+  $('#shipping_appartment').val(shipping_address[5]);
+  $('#shipping_city').val(shipping_address[6]);
+  $('#shipping_district').val(shipping_address[7]);
+  $('#shipping_pincode').val(shipping_address[8]);
+  $('#shipping_addresses').hide();
+  $('#shipping_form').slideDown();
+});
+
+$('#shipping_addresses').on('click','.add_address',function(){
+
+  $('#shipping_addresses').hide();
+  $('#shipping_form').slideDown();
+});
+
+$('#account_page').click(function() {
+
+ $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+  if (session_data != 'false') 
+  {
+    window.location.href = 'account.php';
+  }
+  else
+  {
+    $('#login-modal').modal('show');
+  }
+
+ });
+
+});
+
+$('#cart_page').click(function() {
+ $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+  if (session_data != 'false') 
+  {
+    if ($('.aa-cart-notify').text() > 0) 
+    {
+      window.location.href = 'cart.php';
+    }
+    else
+    {
+      alert('cart is empty.');
+    }
+  }
+  else
+  {
+    $('#login-modal').modal('show');
+  }
+
+ });
+});
+
+$('#wishlist_page').click(function() {
+ $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+  if (session_data != 'false') 
+  {
+    window.location.href = 'wishlist.php';
+  }
+  else
+  {
+    $('#login-modal').modal('show');
+  }
+
+ });
+});
+
+$('#checkout_page').click(function() {
+ $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+  if (session_data != 'false') 
+  {
+    if ($('.aa-cart-notify').text() > 0) 
+    {
+      window.location.href = 'checkout.php';
+    }
+    else
+    {
+      alert('cart is empty.');
+    }
+  }
+  else
+  {
+    $('#login-modal').modal('show');
+  }
+
+ });
+});
+
+$('#add_toCart').click(function() {
+
+  var id = $(this).attr('data');
+  var quan = $('#choose_quantity').val();
+
+  $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+    if (session_data != 'false') 
+    {
+
+        $.post(cart_url, {action:'add_bulk',card_id:id,quantity:quan,user_email:session_data}).done(function (data) {
+
+          if (data == 'success') 
+          {
+            $('#card_box').load('./php/show_cart.php');
+          }
+          else
+          {
+            alert(data);
+          }
+
+        });      
+    }
+    else
+    {
+      $('#login-modal').modal('show');
+    }
+  });
+  
+});
+
+
+$('#add_toWishlist').click(function() {
+
+
+
+  var id = $(this).attr('data');
+  button = $(this);
+
+  $.post(session_url, {user:"check_session"}).done(function (session_data) {
+
+    if (session_data != 'false') 
+    {
+      if ($.trim(button.text()) == 'Wishlist') 
+      {
+        $.post(wishlist_url, {action:'add',card_id:id,user_email:session_data}).done(function (data) {
+
+          if (data == 'success') 
+          {
+            button.text('Remove From Wishlist');
+          }
+          else
+          {
+            alert(data);
+          }
+
+        });
+      }
+      else if ($.trim(button.text()) == 'Remove From Wishlist')
+      {
+        $.post(wishlist_url, {action:'remove',card_id:id,user_email:session_data}).done(function (data) {
+
+          if (data == 'success') 
+          {
+            button.text('Wishlist');
+          }
+          else
+          {
+            alert(data);
+          }
+
+        });
+      }
+    }
+    else
+    {
+      $('#login-modal').modal('show');
+    }
+  });
+  
+});
 
 
 

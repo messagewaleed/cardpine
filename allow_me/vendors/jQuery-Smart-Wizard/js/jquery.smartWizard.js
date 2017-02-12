@@ -64,6 +64,7 @@ function SmartWizard(target, options) {
             {
                 if(validateForm('billing_'))
                 {
+                    populateShippingForm();
                     $this.goForward();
                 }
             }
@@ -477,8 +478,8 @@ function SmartWizard(target, options) {
     }
 
     _init(this);
-};
 
+};
 
 
 (function($){

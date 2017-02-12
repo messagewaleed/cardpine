@@ -5,6 +5,10 @@
 	include './php/sessions.php';
 	include './allow_me/php/connection.php';
 
+	if (!isset($_SESSION['user'])) {
+		echo "<script>alert('Please Login first'); window.location.href = 'index.php'</script>";
+	}
+
 ?>
 
 <html lang="en">
@@ -101,6 +105,7 @@
 
 		                      <div class="panel-group" id="step-1">
 
+		                      	
 		                        <!-- Billing Details -->
 		                        <div class="panel panel-default aa-checkout-billaddress">
 		                          <div class="panel-heading">
@@ -111,7 +116,53 @@
 		                            </h4>
 		                          </div>
 		                          <div id="collapseThree" class="panel-collapse collapse in">
-		                            <div class="panel-body">
+
+		                          	<!-- user billing addresses -->
+		                      		<div id="billing_addresses" class="panel-body set_addresses">
+		                      			<?php
+
+			                                $res = $conn->query("SELECT DISTINCT(billing_address) FROM user_orders WHERE user_email='".$_SESSION['user']."' ORDER BY order_date LIMIT 3");
+
+			                                if ($res->num_rows != 0){
+			                                
+			                                  while ($row = $res -> fetch_assoc()) {
+
+			                                    $billing_address = explode(',', $row['billing_address']);
+
+			                            ?>
+		                      			<!-- single bill address -->
+		                      			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			                      			<div class="address_single set_address">
+			                      				<div hidden class="copy_billing_address"><?= $row['billing_address']; ?></div>
+			                                    <div><?= $billing_address[0]; ?></div>
+			                                    <div><?= $billing_address[2]; ?></div> 
+			                                    <div><?= $billing_address[3]; ?></div>
+			                                    <div><?= $billing_address[4]; ?></div>
+			                                    <div><?= $billing_address[6]; ?>, <?= $billing_address[7]; ?>, <?= $billing_address[8]; ?></div>
+			                      			</div>
+		                      			</div>
+
+		                      			<?
+		                      				  }
+			                                }
+
+			                           		if ($res->num_rows < 4) {
+			                           			# code...
+			                           		
+		                      			?>
+
+		                      			<!-- add bill address -->
+		                      			<div class="address_single col-lg-3 col-md-3 col-sm-6 col-xs-12 add_address">
+		                      				<i class="fa fa-plus fa_plus" aria-hidden="true" ></i>
+		                      			</div>
+
+		                      			<?php
+		                      				}
+		                      			?>
+		                      		</div>
+
+		                          	<!-- billing address form -->
+		                            <div hidden id="billing_form" class="panel-body">
 		                              <div class="row">
 		                                <div class="col-md-6">
 		                                  <div class="aa-checkout-single-bill">
@@ -193,7 +244,61 @@
 		                            </h4>
 		                          </div>
 		                          <div id="collapseFour" class="panel-collapse collapse in">
-		                            <div class="panel-body">
+
+		                          	<!-- user billing addresses -->
+		                      		<div id="shipping_addresses" class="panel-body set_addresses">
+		                      			<?php
+
+			                                $res = $conn->query("SELECT DISTINCT(shipping_address) FROM user_orders WHERE user_email='".$_SESSION['user']."' ORDER BY order_date LIMIT 3");
+
+			                                if ($res->num_rows != 0){
+
+			                                
+			                                  while ($row = $res -> fetch_assoc()) {
+
+			                                    $shipping_address = explode(',', $row['shipping_address']);
+			                                    
+
+
+			                            ?>
+		                      			<!-- single bill address -->
+		                      			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			                      			<div class="address_single set_address">
+			                      				<div hidden class="copy_shipping_address"><?= $row['shipping_address']; ?></div>
+			                                    <div><?= $shipping_address[0]; ?></div>
+			                                    <div><?= $shipping_address[2]; ?></div> 
+			                                    <div><?= $shipping_address[3]; ?></div>
+			                                    <div><?= $shipping_address[4]; ?></div>
+			                                    <div><?= $shipping_address[6]; ?>, <?= $shipping_address[7]; ?>, <?= $shipping_address[8]; ?></div>
+			                      			</div>
+		                      			</div>
+
+		                      			<?
+		                      				  }
+			                                }
+
+			                           		if ($res->num_rows < 4) {
+			                           			# code...
+			                           		
+		                      			?>
+
+
+		                      			<!-- add bill address -->
+		                      			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			                      			<div class="address_single add_address">
+			                      				<i class="fa fa-plus fa_plus" aria-hidden="true" ></i>
+			                      			</div>
+		                      			</div>
+		                      			<?php
+
+		                      				}
+
+		                      			?>
+
+		                      		</div>
+
+		                          	<!-- shipping address form -->
+		                            <div hidden id="shipping_form" class="panel-body">
 		                             <div class="row">
 		                                <div class="col-md-6">
 		                                  <div class="aa-checkout-single-bill">
@@ -286,10 +391,10 @@
 		                            <tbody>
 		                              <?php 
 
-		                                $sql = "SELECT * FROM user_cart WHERE user_email = '".$_SESSION['user']."'";
-		                                $result = $conn->query($sql);
+		                                  $sql = "SELECT * FROM user_cart WHERE user_email = '".$_SESSION['user']."'";
+		                                  $result = $conn->query($sql);
 
-		                                $total=0;
+		                                  $total=0;
 		                                  $sub_total=0;
 
 		                                  while ($row = $result->fetch_assoc()) {

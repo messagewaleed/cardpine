@@ -31,9 +31,9 @@
             $card_data = $res->fetch_assoc();
 
             $total_price = ($item_quantity*$card_data['card_price']);
-            $item_name =$card_data['card_name']
+            $item_name =$card_data['card_name'];
 
-            $insert_order_details = "INSERT INTO order_details (order_id, item_id, item_name, item_quantity, total_price) VALUES ('$order_id', $item_id, $item_name, $item_quantity, $total_price)";
+            $insert_order_details = "INSERT INTO order_details (order_id, item_id, item_name, item_quantity, total_price) VALUES ('$order_id', $item_id, '$item_name', $item_quantity, $total_price)";
 
             if ($conn -> query($insert_order_details) === TRUE) {
             	

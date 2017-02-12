@@ -60,10 +60,10 @@
                 <!-- / header top left -->
                 <div class="aa-header-top-right">
                   <ul class="aa-head-top-nav-right">
-                    <li><a href="#">My Account</a></li>
-                    <li class="hidden-xs"><a href="#">Wishlist</a></li>
-                    <li class="hidden-xs"><a href="#">My Cart</a></li>
-                    <li class="hidden-xs"><a href="#">Checkout</a></li>
+                    <li><a id="account_page">My Account</a></li>
+                    <li class="hidden-xs"><a id="wishlist_page">Wishlist</a></li>
+                    <li class="hidden-xs"><a id="cart_page">My Cart</a></li>
+                    <li class="hidden-xs"><a id="checkout_page">Checkout</a></li>
 
                     <?php
 
@@ -107,7 +107,7 @@
                 <!-- logo  -->
                 <div class="aa-logo">
                   <!-- Text based logo -->
-                  <a href="index.html">
+                  <a href="index.php">
                     <span class="fa fa-shopping-cart"></span>
                     <p>C A R D<strong>Pine</strong> <span>Your Card Collection</span></p>
                   </a>

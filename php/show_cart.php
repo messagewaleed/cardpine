@@ -14,7 +14,7 @@
 
     if ($result->num_rows == 0) {
 ?>
-      <a class="aa-cart-link" href="#">
+      <a class="aa-cart-link">
         <span class="fa fa-shopping-basket"></span>
         <span class="aa-cart-title">SHOPPING CART</span>
         <span class="aa-cart-notify">0</span>
@@ -27,7 +27,7 @@
       $total=0;
 
 ?>
-      <a class="aa-cart-link" href="#">
+      <a class="aa-cart-link" href="cart.php">
         <span class="fa fa-shopping-basket"></span>
         <span class="aa-cart-title">SHOPPING CART</span>
         <span class="aa-cart-notify"><?= $result->num_rows; ?></span>
@@ -69,7 +69,7 @@
       </span>
     </li>
   </ul>
-  <a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
+  <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.php">Checkout</a>
 </div>
 
 <?php
@@ -78,7 +78,7 @@
   else
   {
 ?>
-    <a class="aa-cart-link" href="#">
+    <a class="aa-cart-link">
       <span class="fa fa-shopping-basket"></span>
       <span class="aa-cart-title">SHOPPING CART</span>
       <span class="aa-cart-notify">0</span>
