@@ -389,6 +389,24 @@
                                                 <img id="dialog_display_image"  src="./allow_me/images/cards/tiles/hindu6.jpg" class="simpleLens-big-image">
                                             </a>
                                         </div>
+                                        <div class="simpleLens-thumbnails-container">
+                                          <a class="simpleLens-thumbnail-wrapper"
+                                             data-lens-image="./allow_me/images/cards/main/hindu6.jpg"
+                                             data-big-image="./allow_me/images/cards/tiles/hindu6.jpg">
+                                              <img src="./allow_me/images/cards/thumbnails/hindu6.jpg">
+                                          </a>                                    
+                                          <a class="simpleLens-thumbnail-wrapper"
+                                             data-lens-image="./allow_me/images/cards/main/hindu8.jpg"
+                                             data-big-image="./allow_me/images/cards/tiles/hindu8.jpg">
+                                              <img src="./allow_me/images/cards/thumbnails/hindu8.jpg">
+                                          </a>
+
+                                          <a class="simpleLens-thumbnail-wrapper"
+                                             data-lens-image="./allow_me/images/cards/main/hindu7.jpg"
+                                             data-big-image="./allow_me/images/cards/tiles/hindu7.jpg">
+                                              <img src="./allow_me/images/cards/thumbnails/hindu7.jpg">
+                                          </a>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -444,7 +462,7 @@
           <div class="col-md-12">        
             <div class="row">
               <div class="aa-banner-area">
-              <a href="#"><img src="my_img/bbanner.jpg" alt="fashion banner img"></a>
+              <a href="#"><img src="./allow_me/images/bbanner.jpg" alt="fashion banner img"></a>
             </div>
             </div>
           </div>

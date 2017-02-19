@@ -1,11 +1,6 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "cardpine";
 
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
+ include '../allow_me/php/connection.php';
 
   $found = false;
   
@@ -147,7 +142,8 @@
 
     $result = $conn -> query($sql);
 
-    $email = $result->fetch_assoc()['registered_from'];
+    $email = $result->fetch_assoc();
+    $email = $email['registered_from'];
 
     if ($email == "" || $email == null ) {
 
@@ -205,7 +201,8 @@
 
       $result = $conn -> query($sql);
 
-      $code = $result->fetch_assoc()['confirmation_code'];
+      $code = $result->fetch_assoc();
+      $code = $code['confirmation_code'];
 
       if ($code == $_POST['confirmation_code']) {
         

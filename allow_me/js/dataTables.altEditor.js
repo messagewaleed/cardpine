@@ -178,6 +178,33 @@ var ajaxUrl;
           );
 
 
+         // generateInvoice Button
+         if( this.s.dt.button('generateInvoice:name') )
+         {
+          this.s.dt.button('generateInvoice:name').action( function(e, dt, node, config) {
+
+            var rows = dt.rows({
+              selected: true
+            });
+
+            var order_id = rows.data()[0]['order_id'];
+            $.post('../allow_me/invoice_generator/invoice_bill/invoice.php',{order_id:order_id},function(data){
+              if (data == 'success') 
+              {
+                alert('Invoice has been generated!');
+                dt.ajax.reload();
+              }
+              else
+              {
+                alert(data);
+              }
+
+            });
+            
+          });
+        }
+
+
          // add Edit Button
          if( this.s.dt.button('edit:name') )
          {
